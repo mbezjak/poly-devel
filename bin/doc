@@ -1,0 +1,36 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r project=$(basename $PWD)
+
+if is-gradle; then
+    if [[ -d src/main/groovy ]]; then
+        ./gradlew groovydoc
+        open build/docs/groovydoc/index.html
+    elif [[ -d src/main/java ]]; then
+        ./gradlew javadoc
+        open build/docs/javadoc/index.html
+    else
+        fail "Unknown gradle project: $project"
+    fi
+
+elif is-playframework; then
+    play doc
+    open target/scala-*/api/index.html
+
+elif [[ -f src/docs/index.rst ]]; then
+    make -C src/docs html
+    open target/manual/html/index.html
+
+elif [[ -d src/main/javascript ]]; then
+    make doc
+    open target/jsdoc/index.html
+
+else
+    fail "How to document: $project?"
+fi
+
+
+exit 0

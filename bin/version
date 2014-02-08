@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r project=$(basename $PWD)
+
+if is-grails-plugin; then
+    declare -r file=$(find-grails-plugin-descriptor)
+    awk '/def version/{print $4}' $file | tr -d "'\""
+
+elif is-grails-project; then
+    grep app.version application.properties | awk -F= '{print $2}'
+
+elif is-playframework; then
+    awk '/val appVersion/{print $4}' project/Build.scala | tr -d "'\""
+
+elif is-gradle; then
+    awk '/version =/{print $3}' build.gradle | tr -d "'\""
+
+else
+    fail "How to get version from: $project?"
+fi
+
+exit 0
