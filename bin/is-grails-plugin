@@ -1,0 +1,4 @@
+#!/bin/bash
+#
+
+[[ $(find-grails-plugin-descriptor | wc -l) == 1 ]]
