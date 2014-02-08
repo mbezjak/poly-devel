@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+case "$1" in
+    red)    tput -Txterm setaf 1 ;;
+    green)  tput -Txterm setaf 2 ;;
+    yellow) tput -Txterm setaf 3 ;;
+    reset)  tput -Txterm sgr0    ;;
+    *)      echo "Unknown color: $1"; die ;;
+esac
+
+exit 0

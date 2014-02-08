@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+color red
+echo "$@"
+color reset
+
+exit 0
