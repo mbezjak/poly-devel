@@ -1,0 +1,4 @@
+#!/bin/bash
+#
+
+grep app.grails.version application.properties | awk -F= '{print $2}'
