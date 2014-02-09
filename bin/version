@@ -6,7 +6,7 @@ set -o errexit
 declare -r project=$(project-dir)
 
 if is-grails-plugin; then
-    declare -r file=$(find-grails-plugin-descriptor)
+    declare -r file=$(grails-find-plugin-descriptor)
     awk '/def version/{print $4}' $file | tr -d "'\""
 
 elif is-grails-project; then
