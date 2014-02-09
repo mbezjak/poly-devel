@@ -3,7 +3,7 @@
 
 set -o errexit
 
-declare -r project=$(basename $PWD)
+declare -r project=$(project-dir)
 
 if is-gradle; then
     if [[ -d src/main/groovy ]]; then
