@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r project=$(project-dir)
+
+if is-grails; then
+    awk -F= '/app.grails.version/{print $2}' application.properties
+
+elif is-playframework; then
+    awk -F\" '/com.typesafe.play/{print $6}' project/plugins.sbt
+
+else
+    fail "What is the container for: $project?"
+fi
+
+exit 0
