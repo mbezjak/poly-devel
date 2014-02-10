@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+if have python3; then
+    python3 -m http.server
+elif have python2; then
+    python2 -m SimpleHTTPServer
+else
+    fail "First install python"
+fi
+
+exit 0
