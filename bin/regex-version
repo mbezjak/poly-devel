@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+
+declare -r quotes="['\"]\?"
+echo "${quotes}[a-zA-Z0-9._-]\+${quotes}"

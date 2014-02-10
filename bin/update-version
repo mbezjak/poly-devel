@@ -7,21 +7,22 @@ function usage { echo "$(basename $0) VERSION"; }
 
 declare -r version="$1"
 declare -r project=$(project-dir)
+declare -r rev=$(regex-version)
 
 [[ -z "$version" ]] && usage && die
 
 
 if is-grails-project; then
-    sed -i "s/app.version=.*/app.version=$version/" application.properties
+    sed -i "s/app.version=$rev/app.version=$version/" application.properties
 
 elif is-grails-plugin; then
-    sed -i 's|\(def version \+= \)".\+"|\1"'$version'"|' $(grails-find-plugin-descriptor)
+    sed -i "s|\(def version \+= \)$rev|\1'$version'|" $(grails-find-plugin-descriptor)
 
 elif is-playframework; then
-    sed -i 's|\(val appVersion \+= \)".\+"|\1"'$version'"|' project/Build.scala
+    sed -i "s|\(val appVersion \+= \)$rev|\1\"$version\"|" project/Build.scala
 
 elif is-gradle; then
-    sed -i "s|\(version = \)'.\+'|\1'$version'|" build.gradle
+    sed -i "s|\(version = \)$rev|\1'$version'|" build.gradle
 
 else
     fail "How to update version in: $project?"
