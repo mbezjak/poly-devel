@@ -1,0 +1,33 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "$(basename $0) ARTIFACT VERSION"; }
+
+declare -r artifact="$1"
+declare -r version="$2"
+declare -r project=$(project-dir)
+
+declare -r req=$(regex-quotes)
+declare -r rev=$(regex-version)
+declare -r reg=$(regex-mvn-group)
+declare -r gradlesyntax="s|\($req\($reg\)*:$artifact:\)$rev\($req\)|\1$version\3|"
+
+[[ -z "$artifact" || -z "$version" ]] && usage && die
+
+
+if is-grails; then
+    sed -i "$gradlesyntax" grails-app/conf/BuildConfig.groovy
+
+elif is-playframework; then
+    sed -i "s|\($reg %\+ \"$artifact\" % \)$rev|\1\"$version\"|" project/Build.scala
+
+elif is-gradle; then
+    sed -i "$gradlesyntax" build.gradle
+
+else
+    fail "How to update $artifact to $version in: $project?"
+fi
+
+exit 0
