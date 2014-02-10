@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r project=$(project-dir)
+
+if is-hg; then
+    hg status | wc -l
+
+elif is-git; then
+    git status --short | wc -l
+
+else
+    fail "Unknown version control in: $project"
+fi
+
+exit 0
