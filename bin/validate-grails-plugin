@@ -1,0 +1,4 @@
+#!/bin/bash
+#
+
+is-grails-plugin || fail "Not a grails plugin: $(project-dir)"
