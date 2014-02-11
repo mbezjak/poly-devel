@@ -1,4 +1,20 @@
 #!/bin/bash
 #
 
-xdg-open "$@"
+set -o errexit
+
+declare -r name="$1"
+declare -r ext=$(extension "$name")
+
+# so far I haven't been burned, but this fails for http://domain/foo.jar
+if [[ $ext == jar ]]; then
+    if   have ark;         then ark "$name" &
+    elif have file-roller; then file-roller "$name" &
+    else fail "How to open archiver for: $name?"
+    fi
+
+else
+    xdg-open "$name"
+fi
+
+exit 0
