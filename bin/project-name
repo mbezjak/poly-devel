@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r project=$(project-dir)
+
+if is-grails; then
+    grep app.name application.properties | awk -F= '{print $2}'
+
+elif is-playframework; then
+    awk '/val appName/{print $4}' project/Build.scala | strip-quotes
+
+elif is-gradle; then
+    if [[ -f settings.gradle ]]; then
+        awk '/rootProject\.name =/{print $3}' settings.gradle | strip-quotes
+    else
+        echo $project
+    fi
+
+else
+    fail "How to get name from: $project?"
+fi
+
+exit 0
