@@ -1,0 +1,4 @@
+#!/bin/bash
+#
+
+SEARCH_EXPR='-type f' search "$1"
