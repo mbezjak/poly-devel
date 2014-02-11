@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+if [[ -x gradlew ]]; then
+    ./gradlew "$@"
+else
+    gradle "$@"
+fi
+
+exit 0
