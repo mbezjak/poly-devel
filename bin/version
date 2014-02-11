@@ -7,16 +7,16 @@ declare -r project=$(project-dir)
 
 if is-grails-plugin; then
     declare -r file=$(grails-find-plugin-descriptor)
-    awk '/def version/{print $4}' $file | tr -d "'\""
+    awk '/def version/{print $4}' $file | strip-quotes
 
 elif is-grails-project; then
     grep app.version application.properties | awk -F= '{print $2}'
 
 elif is-playframework; then
-    awk '/val appVersion/{print $4}' project/Build.scala | tr -d "'\""
+    awk '/val appVersion/{print $4}' project/Build.scala | strip-quotes
 
 elif is-gradle; then
-    awk '/version =/{print $3}' build.gradle | tr -d "'\""
+    awk '/version =/{print $3}' build.gradle | strip-quotes
 
 else
     fail "How to get version from: $project?"
