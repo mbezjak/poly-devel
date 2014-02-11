@@ -1,0 +1,52 @@
+#!/bin/bash
+#
+# Similar to grailsoverride but doesn't use rsync. Doesn't replace it completely
+# because this way of doing things has it's own quirks.
+
+set -o errexit
+
+function usage {
+    local -r prog=$(basename "$0")
+    cat <<EOF
+$prog - install the plugin via 'grails.plugins.location' for easier testing
+
+SYNOPSIS
+    $prog plugin_name
+
+Current directory should be grails application in which given plugin should be
+installed!
+EOF
+}
+
+
+declare -r plugin="$1"
+declare -r dir="../$plugin"
+declare -r config=grails-app/conf/BuildConfig.groovy
+
+
+# sanity checks
+[[ -z "$plugin" ]] && usage && die
+[[ ! -d "$dir" ]]  && fail "Plugin not found in '$dir'"
+( cd "$dir"; validate-grails-plugin )
+validate-grails-project
+
+
+declare -r pluginname=$(cd "$dir"; project-name)
+declare -r key="grails.plugin.location.'$pluginname'"
+declare -r line="$key = '$dir'"
+
+declare -r installed=$(grep --count --fixed-strings "$key" $config)
+if [[ $installed == 0 ]]; then
+    if [[ -f "$dir/$config" ]]; then
+        # grails doesn't work when `mavenRepo` is being passed a closure
+        sed -i -e 's/\(mavenRepo [^,]\+\),.*/\1/g' "$dir/$config"
+    fi
+    sed -i -e "/':$pluginname:[a-zA-Z0-9.-]\+'/d" $config
+    echo "$line" >> $config
+    msg "$line"
+else
+    sed -i -e "/$key/d" $config
+    echo "Removed: $key"
+fi
+
+exit 0

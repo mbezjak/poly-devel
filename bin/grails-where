@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r plugin="$1"
+
+function plugins {
+  for p in ~/workspace/*
+  do
+    cd "$p"
+    grails-plugins "$plugin"
+  done
+}
+
+plugins | column -t
+
+exit 0

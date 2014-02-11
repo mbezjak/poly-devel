@@ -1,0 +1,58 @@
+#!/bin/bash
+#
+# Override data of installed plugin with one given as argument $1. All files in
+# $1 are copied into grails work plugin directory overriding anything that
+# existed that before. Usefull for testing plugins before releasing them.
+
+set -o errexit
+
+function usage {
+    local -r prog=$(basename "$0")
+    cat <<EOF
+$prog - override data of installed plugin with one given as argument
+
+SYNOPSIS
+    $prog plugin_name
+
+Current directory should be grails application in which given plugin is already
+installed!
+EOF
+}
+
+declare -r plugin="$1"
+declare -r plugindir="../$plugin"
+
+# sanity checks
+[[ -z "$plugin" ]] && usage && die
+[[ ! -d "$plugindir" ]]  && fail "Plugin not found in '$plugindir'"
+( cd "$plugindir"; validate-grails-plugin )
+validate-grails-project
+
+
+declare -r pluginname=$(cd "$plugindir"; project-name)
+declare -r pluginversion=$(cd "$plugindir"; version)
+declare -r projectname=$(project-dir)
+declare -r grailsversion=$(container-version)
+declare installedversion=$(grails-plugins "$pluginname" | awk '{ print $3 }' | head -n 1)
+if [[ "$installedversion" =~ ^latest\.(integration|release)$ ]]; then
+    installedversion="$pluginversion"
+fi
+
+declare workdir="target/plugins/$pluginname-$installedversion"
+[[ ! -d "$workdir" ]] && workdir="$HOME/.grails/$grailsversion/projects/$projectname/plugins/$pluginname-$installedversion"
+
+
+# sanity checks
+[[ -z "$installedversion" ]] && fail "Must be installed: $pluginname"
+[[ "$installedversion" != "$pluginversion" ]] && \
+    fail "Plugin version mismatch; installed: $installedversion, plugin: $pluginversion"
+[[ ! -d "$workdir" ]] && fail "Plugin work directory must exist. Run: grails package"
+
+
+rsync --checksum --archive --delete --prune-empty-dirs --verbose \
+    --exclude=.*      \
+    --exclude=*.zip   \
+    --exclude=target/ \
+    "$plugindir/" "$workdir/"
+
+exit 0

@@ -1,0 +1,28 @@
+#!/usr/bin/env python2
+# coding: utf-8
+#
+
+import re, codecs, os
+from operator import itemgetter
+
+plugins = []
+
+def add_plugins(pattern, file):
+    plugins.extend(re.findall(pattern, text(file)))
+
+def pluginstr():
+    punique = list(set(plugins))
+    psorted = sorted(punique, key=itemgetter(0))
+    pstr = ['{0:s} {1}'.format(*p) for p in psorted]
+    return '\n'.join(pstr) if pstr else ''
+
+def text(name):
+    if not os.path.exists(name): return ''
+    f = codecs.open(name, 'r', 'utf8')
+    return f.read().replace("'", '"') if f else ''
+
+add_plugins(r'":([a-zA-Z0-9_.$\-]+?):([a-zA-Z0-9_.$\-]+?)"', 'grails-app/conf/BuildConfig.groovy')
+add_plugins(r'plugins.(.+?)=(.+)', 'application.properties')
+
+output = pluginstr()
+if output: print output
