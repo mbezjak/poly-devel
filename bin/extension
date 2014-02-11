@@ -2,4 +2,5 @@
 #
 
 # http://stackoverflow.com/questions/965053/extract-filename-and-extension-in-bash
-echo "${1##*.}"
+declare -r file=$(basename "$1")
+echo "${file##*.}"
