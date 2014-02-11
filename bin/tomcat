@@ -35,7 +35,7 @@ function clean   {
 }
 function deploy {
     local -r file="$1"
-    [[ ! -f "$file" && "$file" != *.war ]] && usage && die
+    [[ ! -f "$file" || $(extension "$file") != war ]] && usage && die
 
     stop &> /dev/null
 

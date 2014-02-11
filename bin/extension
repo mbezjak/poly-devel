@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+
+# http://stackoverflow.com/questions/965053/extract-filename-and-extension-in-bash
+echo "${1##*.}"
