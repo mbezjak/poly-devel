@@ -1,0 +1,62 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage {
+    local -r prog=$(basename "$0")
+    cat <<EOF
+$prog - operate on \$CATALINA_HOME tomcat instance
+
+SYNOPSIS
+    $prog start
+    $prog stop
+    $prog restart
+    $prog log
+    $prog clean
+    $prog deploy WAR_FILE [CONTEXT_NAME]
+EOF
+}
+
+declare -r instance="$CATALINA_HOME"
+[[ -z "$instance" ]] && fail "\$CATALINA_HOME must be set"
+[[ ! -d "$instance" ]] && fail "Directory \$CATALINA_HOME=$instance doesn't not exist"
+
+# cd to contain the log files
+function jump    { cd "$instance"; }
+function start   { (jump; bin/startup.sh;) }
+function stop    { (jump; bin/shutdown.sh;) }
+function restart { stop; start; }
+function log     { tail -F "$instance/logs/catalina.out"; }
+function clean   {
+    rm -rf "$instance"/*.log
+    rm -rf "$instance"/{temp,work,logs}/*
+    rm -rf "$instance"/conf/Catalina
+}
+function deploy {
+    local -r file="$1"
+    [[ ! -f "$file" && "$file" != *.war ]] && usage && die
+
+    stop &> /dev/null
+
+    local -r asfile=${2:-$(basename "$file")}
+    local -r context=${asfile%\.war}
+    rm -rf "$instance/webapps/$context"
+    rm -rf "$instance/webapps/${context}.war"
+    cp --verbose "$file" "$instance/webapps/${context}.war"
+
+    start
+    log
+}
+
+case "$1" in
+    start)   start ;;
+    stop)    stop ;;
+    restart) restart ;;
+    log)     log ;;
+    clean)   clean ;;
+    deploy)  deploy "$2" "$3" ;;
+    *)       usage && die ;;
+esac
+
+exit 0
