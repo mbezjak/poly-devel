@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+
+declare -r target="$1"
+declare -r source=$(version)
+
+[[ "$target" != "$source" ]] &&
+    fail "Release versions do not match; project=$source, release=$target: $(project-dir)"
