@@ -1,0 +1,4 @@
+#!/bin/bash
+#
+
+[[ $(repo-dirty) -eq 0 ]]

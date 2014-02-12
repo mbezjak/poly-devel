@@ -1,5 +1,5 @@
 #!/bin/bash
 #
 
-[[ $(repo-dirty) -eq 0 ]] ||
+repo-is-clean ||
     fail "To ensure script automation stability project cannot have uncommited changes: $(project-dir)"

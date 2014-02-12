@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) msg..."; }
+[[ -z "$1" ]] && usage && die
+
+if is-hg; then
+    hg commit --addremove --message="$@"
+
+elif is-git; then
+    git add .
+    git commit --message="$@"
+
+else
+    fail "Unknown version control in: $(project-dir)"
+fi
+
+exit 0

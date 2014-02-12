@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) ARTIFACT VERSION"; }
+
+declare -r artifact="$1"
+declare -r version="$2"
+[[ -z "$artifact" || -z "$version" ]] && usage && die
+
+
+declare -r project=$(project-dir)
+declare -r statusclean=$(status-for repo-is-clean)
+update-dependency "$artifact" "$version"
+
+if [[ $statusclean -eq 0 ]]; then
+    repo-commit-all "update: $artifact $version"
+    msg "Anchored $artifact to $version in $project"
+else
+    warn "Updated $artifact to $version without committing in $project"
+fi
+
+exit 0
