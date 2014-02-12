@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) ANOTHER_PROJECT_NAME"; }
+
+declare -r toproject="$1"
+declare -r todir=../"$toproject"
+declare -r thisproject=$(project-name)
+declare -r thisversion=$(version)
+
+[[ -z "$toproject" ]] && usage && die
+[[ ! -d "$todir" ]] &&
+    warn "It's a shame! $thisproject could have been automatically updated in $toproject if only you had $todir" &&
+    die
+
+
+cd "$todir"
+anchor-dependency "$thisproject" "$thisversion"
+
+exit 0
