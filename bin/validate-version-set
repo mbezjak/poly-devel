@@ -1,4 +1,4 @@
 #!/bin/bash
 #
 
-[[ -z "$1" ]] && fail "Required parameter VERSION: $(project-dir)"
+[[ -z "$1" ]] && fail "Mandatory parameter VERSION"
