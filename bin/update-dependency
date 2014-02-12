@@ -3,7 +3,7 @@
 
 set -o errexit
 
-function usage { echo "$(basename $0) ARTIFACT VERSION"; }
+function usage { echo "Usage: $(basename $0) ARTIFACT VERSION"; }
 
 declare -r artifact="$1"
 declare -r version="$2"

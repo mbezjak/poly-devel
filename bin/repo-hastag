@@ -3,7 +3,7 @@
 
 set -o errexit
 
-function usage { echo "$(basename $0) TAG_NAME"; }
+function usage { echo "Usage: $(basename $0) TAG_NAME"; }
 
 declare -r tag="$1"
 declare -r project=$(project-dir)
