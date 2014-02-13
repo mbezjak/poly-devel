@@ -7,7 +7,13 @@ set -o errexit
 declare -r plugin="$1"
 declare -r plugindir="../$plugin"
 
-grailsoverride "$plugin" > /dev/null
+function run {
+    # reject stdout; but echo it in case of failure
+    grailsoverride "$plugin" > /dev/null || grailsoverride "$plugin"
+}
+
+
+run
 
 while inotifywait --quiet \
                   --recursive \
@@ -15,7 +21,7 @@ while inotifywait --quiet \
                   --exclude '(\.#|\.zip|target)' \
                   "$plugindir"
 do
-  grailsoverride "$plugin" > /dev/null
+    run
 done
 
 exit 0
