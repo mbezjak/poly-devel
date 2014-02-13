@@ -1,4 +1,5 @@
 #!/bin/bash
 #
 
-find -maxdepth 1 -name '*GrailsPlugin.groovy' -printf '%f\n'
+# `-type f` eliminates emacs generated links: '.#FooGrailsPlugin.groovy'
+find -maxdepth 1 -type f -name '*GrailsPlugin.groovy' -printf '%f\n'
