@@ -33,7 +33,7 @@ declare -r pluginname=$(cd "$plugindir"; project-name)
 declare -r pluginversion=$(cd "$plugindir"; version)
 declare -r projectname=$(project-dir)
 declare -r grailsversion=$(container-version)
-declare installedversion=$(grails-plugins "$pluginname" | awk '{ print $3 }' | head -n 1)
+declare installedversion=$(grails-plugins "$pluginname" | awk '{ print $3 }')
 if [[ "$installedversion" =~ ^latest\.(integration|release)$ ]]; then
     installedversion="$pluginversion"
 fi
