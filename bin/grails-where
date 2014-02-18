@@ -9,7 +9,7 @@ function plugins {
   for p in ~/workspace/*
   do
     cd "$p"
-    grails-plugins "$plugin"
+    is-grails && grails-plugins "$plugin"
   done
 }
 
