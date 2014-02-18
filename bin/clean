@@ -7,4 +7,8 @@ rm -rf target
 rm -rf build
 rm -rf client-app/target
 
+if is-grails; then
+    rm -rf $(grails-work-dir)
+fi
+
 exit 0
