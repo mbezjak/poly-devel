@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+
+# http://stackoverflow.com/questions/369758/how-to-trim-whitespace-from-bash-variable
+sed -e 's/^ *//g' -e 's/ *$//g'

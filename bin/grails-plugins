@@ -14,13 +14,8 @@ function find-in {
 }
 
 function from-work-dir {
-    local -r inTarget=target/plugins
-    local -r inDotGrails="$HOME/.grails/$(container-version)/projects/$project/plugins"
-
-    if   [[ -d $inTarget ]];    then find-in $inTarget
-    elif [[ -d $inDotGrails ]]; then find-in $inDotGrails
-    fi
-
+    local -r dir="$(grails-work-dir)/plugins"
+    [[ -d "$dir" ]] && find-in "$dir"
     return 0
 }
 

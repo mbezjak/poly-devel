@@ -37,10 +37,7 @@ declare installedversion=$(grails-plugins "$pluginname" | awk '{ print $3 }')
 if [[ "$installedversion" =~ ^latest\.(integration|release)$ ]]; then
     installedversion="$pluginversion"
 fi
-
-declare workdir="target/plugins/$pluginname-$installedversion"
-[[ ! -d "$workdir" ]] && workdir="$HOME/.grails/$grailsversion/projects/$projectname/plugins/$pluginname-$installedversion"
-
+declare -r workdir="$(grails-work-dir)/plugins/$pluginname-$installedversion"
 
 # sanity checks
 [[ -z "$installedversion" ]] && fail "Must be installed: $pluginname"
