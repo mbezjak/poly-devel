@@ -26,6 +26,9 @@ elif is-playframework; then
 elif is-gradle; then
     sed -i "$gradlesyntax" build.gradle
 
+elif [[ -x poly-devel/update-dependency.sh ]]; then
+    poly-devel/update-dependency.sh "$artifact" "$version"
+
 else
     fail "How to update $artifact to $version in: $project?"
 fi
