@@ -16,6 +16,7 @@ update-dependency "$artifact" "$version"
 
 if [[ $statusclean -eq 0 ]]; then
     repo-commit-all "update: $artifact $version"
+    repo-push || ignore # best effort; not a reason to exit with an error
     msg "$project: anchored $artifact to $version"
 else
     warn "$project: updated $artifact to $version without committing"
