@@ -18,6 +18,9 @@ elif is-playframework; then
 elif is-gradle; then
     awk '/version =/{print $3}' build.gradle | strip-quotes
 
+elif [[ -x poly-devel/version.sh ]]; then
+    poly-devel/version.sh
+
 else
     fail "How to get version from: $project?"
 fi
