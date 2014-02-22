@@ -24,6 +24,9 @@ elif is-playframework; then
 elif is-gradle; then
     sed -i "s|\(version = \)$rev|\1'$version'|" build.gradle
 
+elif [[ -x poly-devel/update-version.sh ]]; then
+    poly-devel/update-version.sh "$version"
+
 else
     fail "How to update version in: $project?"
 fi
