@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r global=~/.poly-devel/workspaces.sh
+
+if [[ -x "$global" ]]; then
+    "$global"
+else
+    echo "$HOME/workspace"
+    echo "$HOME/Dropbox"
+fi
+
+exit 0

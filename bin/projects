@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+
+find -L $(workspaces) -mindepth 2 -maxdepth 2 \
+    \( -name .git -or -name .hg \) -printf '%h\n'
