@@ -6,7 +6,7 @@ set -o errexit
 declare -r plugin="$1"
 
 function plugins {
-  for p in ~/workspace/*
+  for p in $(projects)
   do
     cd "$p"
     is-grails && grails-plugins "$plugin"
