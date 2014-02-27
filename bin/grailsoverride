@@ -20,11 +20,10 @@ EOF
 }
 
 declare -r plugin="$1"
-declare -r plugindir="../$plugin"
-
-# sanity checks
 [[ -z "$plugin" ]] && usage && die
-[[ ! -d "$plugindir" ]]  && fail "Plugin not found in '$plugindir'"
+
+validate-project-exists "$plugin"
+declare -r plugindir=$(project-find "$plugin")
 ( cd "$plugindir"; validate-grails-plugin )
 validate-grails-project
 

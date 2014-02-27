@@ -6,7 +6,7 @@ set -o errexit
 function usage { echo "Usage: $(basename $0) ANOTHER_PROJECT_NAME"; }
 
 declare -r toproject="$1"
-declare -r todir=../"$toproject"
+declare -r todir=$(project-find "$toproject" || ignore)
 declare -r thisproject=$(project-name)
 declare -r thisversion=$(version)
 

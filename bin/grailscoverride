@@ -5,7 +5,8 @@
 set -o errexit
 
 declare -r plugin="$1"
-declare -r plugindir="../$plugin"
+validate-project-exists "$plugin"
+declare -r plugindir=$(project-find "$plugin")
 
 function run {
     # reject stdout; but echo it in case of failure

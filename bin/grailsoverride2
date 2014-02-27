@@ -20,13 +20,11 @@ EOF
 
 
 declare -r plugin="$1"
-declare -r dir="../$plugin"
 declare -r config=grails-app/conf/BuildConfig.groovy
 
-
-# sanity checks
 [[ -z "$plugin" ]] && usage && die
-[[ ! -d "$dir" ]]  && fail "Plugin not found in '$dir'"
+validate-project-exists "$plugin"
+declare -r dir=$(project-find "$plugin")
 ( cd "$dir"; validate-grails-plugin )
 validate-grails-project
 

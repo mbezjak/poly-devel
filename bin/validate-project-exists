@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+
+declare -r project="$1"
+
+project-find "$project" > /dev/null ||
+   fail "Project not found in any workspace: $project"
