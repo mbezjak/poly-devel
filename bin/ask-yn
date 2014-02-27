@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+read answer
+
+if   [[ "$answer" == y ]]; then echo y
+elif [[ "$answer" == n ]]; then echo n
+elif [[ -z "$answer" ]];   then echo ${1:-y}
+else die
+fi
+
+exit 0
