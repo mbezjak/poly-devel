@@ -1,0 +1,4 @@
+#!/bin/bash
+#
+
+projects | grep "/$1\$"
