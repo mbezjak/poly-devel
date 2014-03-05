@@ -6,4 +6,5 @@ find -L $SEARCH_EXPR -iname "*$1*" -printf '%P\n' |
         -e '(^|/)\.hg(/|$)'     \
         -e '(^|/)\.git(/|$)'    \
         -e '(^|/)target(/|$)'   \
-        -e '(^|/)build(/|$)'
+        -e '(^|/)build(/|$)'    \
+        -e '(^|/)\.gradle(/|$)'
