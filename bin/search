@@ -2,5 +2,8 @@
 #
 
 find -L $SEARCH_EXPR -iname "*$1*" -printf '%P\n' |
-    grep -v -e '^\.hg' -e '^\.git' -e '^target' -e '^build' \
-        -e '/\.hg/' -e '/\.git/' -e '/target/' -e '/build/'
+    grep -v -E \
+        -e '(^|/)\.hg(/|$)'     \
+        -e '(^|/)\.git(/|$)'    \
+        -e '(^|/)target(/|$)'   \
+        -e '(^|/)build(/|$)'
