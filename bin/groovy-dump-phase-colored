@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+
+# http://pygments.org/docs/cmdline/
+groovy-dump-phase "$@" | pygmentize -l groovy -O bg=dark

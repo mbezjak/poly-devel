@@ -1,0 +1,14 @@
+#!/usr/bin/env groovy
+
+// https://github.com/groovy/groovy-core/blob/master/subprojects/groovy-console/src/main/groovy/groovy/inspect/swingui/AstNodeToScriptAdapter.groovy
+// https://github.com/groovy/groovy-core/blob/master/src/main/org/codehaus/groovy/control/Phases.java
+
+
+def dumpArgs = args
+if (args.length == 1) {
+    def file = args[0]
+    def canonicalizationPhase = '5'
+    dumpArgs = [ file, canonicalizationPhase ] as String[]
+}
+
+groovy.inspect.swingui.AstNodeToScriptAdapter.main(dumpArgs)
