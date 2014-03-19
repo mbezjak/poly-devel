@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+
+if is-grails-project || is-grails-plugin; then
+    exit 0
+else
+    fail "Not a grails project or plugin: $(project-dir)"
+fi

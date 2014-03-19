@@ -25,7 +25,7 @@ declare -r plugin="$1"
 validate-project-exists "$plugin"
 declare -r plugindir=$(project-find "$plugin")
 ( cd "$plugindir"; validate-grails-plugin )
-validate-grails-project
+validate-is-grails
 
 
 declare -r pluginname=$(cd "$plugindir"; project-name)
