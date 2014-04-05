@@ -2,4 +2,4 @@
 #
 
 repo-is-clean ||
-    fail "To ensure script automation stability project cannot have uncommited changes: $(project-dir)"
+    fail "To ensure script automation stability, project cannot have uncommited changes: $(project-dir)"
