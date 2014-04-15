@@ -46,8 +46,8 @@ declare -r workdir="$(grails-work-dir)/plugins/$pluginname-$installedversion"
 
 
 rsync --checksum --archive --delete --prune-empty-dirs --verbose \
-    --exclude=.*      \
-    --exclude=*.zip   \
+    --exclude='.*'    \
+    --exclude='*.zip' \
     --exclude=target/ \
     "$plugindir/" "$workdir/"
 
