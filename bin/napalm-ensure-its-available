@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r program=$1
+declare -r version=$2
+
+if ! napalm-is-installed $program $version; then
+    napalm install $program $version
+fi
+
+exit 0

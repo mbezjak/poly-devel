@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+
+declare -r program=$1
+declare -r version=$2
+
+napalm show $program $version &> /dev/null
