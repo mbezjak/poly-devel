@@ -10,7 +10,7 @@ if is-grails-plugin; then
     awk '/def version/{print $4}' $file | strip-quotes
 
 elif is-grails-project; then
-    grep app.version application.properties | awk -F= '{print $2}'
+    properties-get application.properties app.version
 
 elif is-playframework; then
     awk '/val appVersion/{print $4}' project/Build.scala | strip-quotes

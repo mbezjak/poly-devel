@@ -6,7 +6,7 @@ set -o errexit
 declare -r project=$(project-dir)
 
 if is-grails; then
-    grep app.name application.properties | awk -F= '{print $2}'
+    properties-get application.properties app.name
 
 elif is-playframework; then
     awk '/val appName/{print $4}' project/Build.scala | strip-quotes
