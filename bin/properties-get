@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) FILE KEY"; }
+
+declare -r file="$1"
+declare -r key="$2"
+[[ -z "$file" || -z "$key" ]] && usage && die
+[[ ! -f "$file" ]] && fail "Not a valid file: $file"
+
+awk -F= "/$key"'/{print $2}' "$file" | trim
+
+exit 0
