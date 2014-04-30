@@ -19,7 +19,7 @@ if [[ -x grailsw ]]; then
     newline
 
 else # version <= 1.3.x
-    if have napalm; then
+    if have napalm && is-grails; then
         napalm-ensure-using grails $(container-version)
     fi
 
