@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+
+declare -r version="$1"
+declare -r file=Changelog.md
+
+if [[ -f $file ]]; then
+    grep -q "^# $version" $file ||
+        fail "Missing changelog entry for version: $version"
+
+else
+    exit 0
+fi
