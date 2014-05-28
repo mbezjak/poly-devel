@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r version="$1"
+
+validate-version-set "$version"
+validate-version-not-snapshot "$version"
+validate-uncommited
+validate-not-tagged "$version"
+release-commit "$version"
+validate-version-match "$version"
+
+exit 0

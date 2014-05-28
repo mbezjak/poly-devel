@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r version="$1"
+
+release-pre "$version"
+
+if [[ $(container-version) == 2.* ]]; then
+    run-grails --non-interactive publish-plugin
+else
+    run-grails --non-interactive --message="RELEASE $version" --zipOnly --repository=hxRepository
+fi
+
+release-post "$version"
+
+# doesn't add any value
+rm grails-$(project-name)-${version}.zip
+
+exit 0

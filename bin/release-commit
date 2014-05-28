@@ -1,0 +1,36 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) VERSION"; }
+
+declare -r from=$(version)
+declare -r to="$1"
+[[ -z "$to" ]] && usage && die
+
+
+if [[ "$from" == "$to" ]]; then
+    warn "You seem to have already changed the project version to $to.
+In the future you might consider starting the release process before you change
+the project version because this can be automated by:
+1. update-version $to
+2. hg commit --message='RELEASE $to'
+
+Currently the above process will be skipped."
+
+else
+    echo -n "Please, confirm that you want to change the version and commit.
+from version = $from
+to   version = $to
+(Y/n)? "
+
+    if ask-proceed-forward; then
+        update-version "$to"
+        repo-commit-all "RELEASE $to"
+    else
+        fail "Aborting the release process"
+    fi
+fi
+
+exit 0

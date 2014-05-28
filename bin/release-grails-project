@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r version="$1"
+release-pre "$version"
+release-post "$version"
+
+exit 0

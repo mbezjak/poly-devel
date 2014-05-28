@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+trap onexit EXIT
+onexit() {
+    local exit_status=${1:-$?}
+    [[ $exit_status -ne 0 ]] && fail "NOT OK"
+    exit $exit_status
+}
+
+
+if [[ -x release.sh ]]; then
+    ./release.sh "$@"
+
+elif is-grails-project; then
+    release-grails-project "$@"
+
+elif is-grails-plugin; then
+    release-grails-plugin "$@"
+
+elif is-playframework; then
+    release-playframework "$@"
+
+elif is-gradle; then
+    release-gradle "$@"
+
+else
+    fail "How to release: $(project-dir)?"
+fi
+
+msg OK
+exit 0

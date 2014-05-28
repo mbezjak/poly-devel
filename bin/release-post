@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r version="$1"
+declare -r project=$(project-dir)
+
+newline
+newline
+
+repo-tag "$version"
+repo-push
+
+have release-post-more && release-post-more "$version"
+
+exit 0

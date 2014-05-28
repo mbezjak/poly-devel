@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r version="$1"
+
+release-pre "$version"
+run-gradle clean build uploadArchives
+release-post "$version"
+
+exit 0
