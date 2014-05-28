@@ -9,6 +9,7 @@ validate-version-set "$version"
 validate-version-not-snapshot "$version"
 validate-uncommited
 validate-not-tagged "$version"
+validate-changelog "$version"
 release-commit "$version"
 validate-version-match "$version"
 
