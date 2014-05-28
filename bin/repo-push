@@ -8,6 +8,20 @@ if is-hg; then
 
 elif is-git; then
     git push
+    git push --tags
+
+    # http://stackoverflow.com/questions/5167957/is-there-a-better-way-to-find-out-if-a-local-git-branch-exists
+    if git show-ref --verify --quiet refs/heads/gh-pages; then
+        # http://stackoverflow.com/questions/6245570/how-to-get-current-branch-name-in-git
+        declare -r current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+        git checkout gh-pages
+        git merge --ff-only origin/gh-pages
+        git merge master
+        git push
+
+        git checkout $current_branch
+    fi
 
 else
     fail "Unknown version control in: $(project-dir)"
