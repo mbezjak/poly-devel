@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r version=$(grails -version | awk '/version/{print $3}')
+echo -n "Please confirm that you want to use grails $version for this (Y/n): "
+ask-proceed-forward
