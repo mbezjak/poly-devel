@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) VERSION"; }
+declare -r version="$1"
+[[ -z "$version" ]] && usage && die
+
+if is-hg; then
+    hg tag "$version"
+
+elif is-git; then
+    git tag --annotate "$version" --message="Tag for release $version"
+
+else
+    fail "Unknown version control in: $(project-dir)"
+fi
+
+exit 0
