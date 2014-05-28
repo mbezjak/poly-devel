@@ -4,12 +4,10 @@
 set -o errexit
 
 function usage { echo "Usage: $(basename $0) TAG_NAME"; }
-
 declare -r tag="$1"
-declare -r project=$(project-dir)
-function grep-tag { grep "^$tag\$"; }
-
 [[ -z "$tag" ]] && usage && die
+
+function grep-tag { grep "^$tag\$"; }
 
 
 if is-hg; then
@@ -19,7 +17,7 @@ elif is-git; then
     git tag --list | grep-tag > /dev/null
 
 else
-    fail "Unknown version control in: $project"
+    fail "Unknown version control in: $(project-dir)"
 fi
 
 exit 0
