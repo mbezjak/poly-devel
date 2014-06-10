@@ -3,6 +3,11 @@
 
 set -o errexit
 
-declare -r version=$(grails -version | awk '/version/{print $3}')
+declare -r version2x=$(grails -version --non-interactive | awk '/version/{print $3}')
+if [[ -z "$version2x" ]]; then
+    declare -r version1x=$(grails | head -1 | awk '{print $4}')
+fi
+declare -r version=${version2x:-$version1x}
+
 echo -n "Please confirm that you want to use grails $version for this (Y/n): "
 ask-proceed-forward
