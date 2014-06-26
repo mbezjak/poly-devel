@@ -11,6 +11,6 @@ declare -r value="$3"
 [[ -z "$file" || -z "$key" ]] && usage && die
 [[ ! -f "$file" ]] && fail "Not a valid file: $file"
 
-sed -i "s|^\(\s\+$key\s\+=\s\+\).*$|\1$value|" $file
+sed -i "s|^\(\s*$key\s*=\s*\).*$|\1$value|" $file
 
 exit 0
