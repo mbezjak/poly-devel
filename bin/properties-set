@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) FILE KEY [VALUE]"; }
+
+declare -r file="$1"
+declare -r key="$2"
+declare -r value="$3"
+[[ -z "$file" || -z "$key" ]] && usage && die
+[[ ! -f "$file" ]] && fail "Not a valid file: $file"
+
+sed -i "s|^\($key\s\+=\s\+\).*$|\1$value|" $file
+
+exit 0
