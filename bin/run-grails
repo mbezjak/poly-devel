@@ -4,11 +4,13 @@
 set -o errexit
 
 if [[ -x grailsw ]]; then
-    # disable jline because I don't like the fact that it eats my enter keys
-    # refs:
-    # http://stackoverflow.com/questions/2011311/running-java-with-java-opts-env-variable
-    # http://progexc.blogspot.co.il/2013/12/what-i-discovered-while-trying-to-pass.html
-    export _JAVA_OPTIONS="$_JAVA_OPTIONS -Djline.terminal=jline.UnsupportedTerminal"
+    if [[ -n "$@" ]]; then
+        # disable jline because I don't like the fact that it eats my enter keys
+        # refs:
+        # http://stackoverflow.com/questions/2011311/running-java-with-java-opts-env-variable
+        # http://progexc.blogspot.co.il/2013/12/what-i-discovered-while-trying-to-pass.html
+        export _JAVA_OPTIONS="$_JAVA_OPTIONS -Djline.terminal=jline.UnsupportedTerminal"
+    fi
 
     # plain-output because of:
     # http://jira.grails.org/browse/GRAILS-10203
