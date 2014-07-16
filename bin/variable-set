@@ -9,7 +9,7 @@ declare -r file="$1"
 declare -r varname="$2"
 declare -r value="$3"
 [[ -z "$file" || -z "$varname" ]] && usage && die
-[[ ! -f "$file" ]] && fail "Not a valid file: $file"
+validate-file-exists "$file"
 
 sed -i "s/^\(\s*\(val\|var\|def\)\s\+$varname\s*=\s*\).*$/\1$value/" $file
 

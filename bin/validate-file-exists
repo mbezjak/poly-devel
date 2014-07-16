@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+
+declare -r file="$1"
+
+[[ -f "$file" ]] || fail "File does not exists: $file"
