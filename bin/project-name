@@ -13,7 +13,7 @@ elif is-playframework; then
 
 elif is-gradle; then
     if [[ -f settings.gradle ]]; then
-        awk '/rootProject\.name =/{print $3}' settings.gradle | strip-quotes
+        properties-get settings.gradle rootProject.name | strip-quotes
     else
         echo $project
     fi

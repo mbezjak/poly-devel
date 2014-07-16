@@ -7,13 +7,12 @@ function usage { echo "Usage: $(basename $0) VERSION"; }
 
 declare -r version="$1"
 declare -r project=$(project-dir)
-declare -r rev=$(regex-version)
 
 [[ -z "$version" ]] && usage && die
 
 
 if is-grails-project; then
-    sed -i "s/app.version=$rev/app.version=$version/" application.properties
+    properties-set application.properties app.version $version
 
 elif is-grails-plugin; then
     sed -i "s|\(def version \+= \)$rev|\1'$version'|" $(grails-find-plugin-descriptor)
@@ -22,7 +21,7 @@ elif is-playframework; then
     sed -i "s|\(val appVersion \+= \)$rev|\1\"$version\"|" project/Build.scala
 
 elif is-gradle; then
-    sed -i "s|\(version = \)$rev|\1'$version'|" build.gradle
+    properties-set build.gradle version "'$version'"
 
 elif [[ -x poly-devel/update-version.sh ]]; then
     poly-devel/update-version.sh "$version"

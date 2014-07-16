@@ -16,7 +16,7 @@ elif is-playframework; then
     awk '/val appVersion/{print $4}' project/Build.scala | strip-quotes
 
 elif is-gradle; then
-    awk '/version =/{print $3}' build.gradle | strip-quotes
+    properties-get build.gradle version | strip-quotes
 
 elif [[ -x poly-devel/version.sh ]]; then
     poly-devel/version.sh

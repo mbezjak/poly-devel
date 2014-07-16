@@ -4,7 +4,7 @@
 set -o errexit
 
 declare -r config=grails-app/conf/BuildConfig.groovy
-declare -r dir=$(awk -F= '/grails\.project\.work\.dir/{print $2}' $config | strip-quotes | trim)
+declare -r dir=$(properties-get $config grails.project.work.dir | strip-quotes | trim)
 
 if [[ -n "$dir" ]]; then
     echo "$dir"
