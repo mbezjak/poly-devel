@@ -9,7 +9,7 @@ if is-grails; then
     properties-get application.properties app.name
 
 elif is-playframework; then
-    awk '/val appName/{print $4}' project/Build.scala | strip-quotes
+    variable-get project/Build.scala appName | strip-quotes
 
 elif is-gradle; then
     if [[ -f settings.gradle ]]; then

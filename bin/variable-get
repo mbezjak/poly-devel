@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) FILE VARNAME"; }
+
+declare -r file="$1"
+declare -r varname="$2"
+[[ -z "$file" || -z "$varname" ]] && usage && die
+[[ ! -f "$file" ]] && fail "Not a valid file: $file"
+
+awk -F= "/(val|var|def) +$varname"'/{print $2}' "$file" | trim
+
+exit 0
