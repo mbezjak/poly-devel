@@ -45,7 +45,7 @@ declare -r workdir="$(grails-work-dir)/plugins/$pluginname-$installedversion"
 [[ ! -d "$workdir" ]] && fail "Plugin work directory must exist. Run: grails package"
 
 
-rsync --checksum --archive --delete --prune-empty-dirs --verbose \
+rsync --checksum --archive --no-times --delete --prune-empty-dirs --verbose \
     --exclude='.*'    \
     --exclude='*.zip' \
     --exclude=target/ \
