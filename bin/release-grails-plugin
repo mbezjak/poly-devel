@@ -10,7 +10,7 @@ release-pre "$version"
 if [[ $(container-version) == 2.* ]]; then
     run-grails --non-interactive publish-plugin
 else
-    run-grails --non-interactive release-plugin --message="RELEASE $version" --zipOnly --repository=hxRepository
+    run-grails release-plugin --non-interactive --message="RELEASE $version" --zipOnly --repository=hxRepository
 fi
 
 release-post "$version"
