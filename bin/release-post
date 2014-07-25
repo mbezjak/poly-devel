@@ -10,7 +10,7 @@ newline
 newline
 
 repo-tag "$version"
-repo-push
+repo-push || warn "Push failed. Do it manually!"
 
 have release-post-more && release-post-more "$version"
 
