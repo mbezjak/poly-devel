@@ -3,6 +3,8 @@
 
 set -o errexit
 
+exec 1>&2 # output to stderr
+
 color red
 echo "$@"
 color reset
