@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) REPO CMD..."; }
+declare -r repo="$1"
+declare -r dir=$(mktemp --dry-run --suffix="-$(basename $0)")
+[[ -z "$repo" || -z "$2" ]] && usage && die
+shift
+
+repo-clone "$repo" "$dir"
+cd "$dir"
+eval "$@"
+rm -rf "$dir"
+
+exit 0

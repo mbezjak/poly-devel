@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+if is-hg; then
+    hg tags --quiet
+
+elif is-git; then
+    git tag --list
+
+else
+    fail "Unknown version control in: $(project-dir)"
+fi
+
+exit 0

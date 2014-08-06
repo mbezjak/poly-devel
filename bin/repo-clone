@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) REPO [TO_DIR]"; }
+declare -r repo="$1"
+declare -r todir=$2
+[[ -z "$repo" ]] && usage && die
+
+function clone-with { "$1" clone "$repo" $todir &> /dev/null; }
+
+clone-with hg      || \
+    clone-with git || \
+    fail "Cannot clone '$repo' with either of: hg, git"
+
+exit 0

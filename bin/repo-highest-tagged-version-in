@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) REPO"; }
+declare -r repo="$1"
+[[ -z "$repo" ]] && usage && die
+
+repo-with-tmp-clone "$repo" repo-find-highest-tagged-version
+
+exit 0

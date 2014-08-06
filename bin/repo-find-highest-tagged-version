@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+
+set -o errexit
+set -o pipefail
+
+repo-tags                         | \
+    grep -P '^[0-9.]+$'           | \
+    sort --sort=version --reverse | \
+    head -n 1
+
+exit 0

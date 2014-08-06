@@ -2,22 +2,12 @@
 #
 
 set -o errexit
+set -o pipefail
 
 function usage { echo "Usage: $(basename $0) TAG_NAME"; }
 declare -r tag="$1"
 [[ -z "$tag" ]] && usage && die
 
-function grep-tag { grep "^$tag\$"; }
-
-
-if is-hg; then
-    hg --quiet tags | grep-tag > /dev/null
-
-elif is-git; then
-    git tag --list | grep-tag > /dev/null
-
-else
-    fail "Unknown version control in: $(project-dir)"
-fi
+repo-tags | grep "^$tag\$" > /dev/null
 
 exit 0
