@@ -25,6 +25,7 @@ elif is-gradle; then
 
 elif is-sphinx; then
     properties-set source/conf.py version "'$version'"
+    properties-set source/conf.py release "'$version'"
 
 elif [[ -x poly-devel/update-version.sh ]]; then
     poly-devel/update-version.sh "$version"
