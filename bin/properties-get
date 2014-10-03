@@ -10,6 +10,6 @@ declare -r key="$2"
 [[ -z "$file" || -z "$key" ]] && usage && die
 validate-file-exists "$file"
 
-awk -F= "/$key"'/{print $2}' "$file" | trim
+awk -F= "/^\s*$key\s*="'/{print $2}' "$file" | trim
 
 exit 0
