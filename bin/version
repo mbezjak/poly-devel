@@ -18,6 +18,9 @@ elif is-playframework; then
 elif is-gradle; then
     properties-get build.gradle version | strip-quotes
 
+elif is-sphinx; then
+    properties-get source/conf.py version | strip-quotes
+
 elif [[ -x poly-devel/version.sh ]]; then
     poly-devel/version.sh
 

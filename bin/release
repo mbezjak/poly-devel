@@ -26,6 +26,9 @@ elif is-playframework; then
 elif is-gradle; then
     release-gradle "$@"
 
+elif is-sphinx; then
+    release-sphinx "$@"
+
 else
     fail "How to release: $(project-dir)?"
 fi

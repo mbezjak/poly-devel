@@ -18,6 +18,9 @@ elif is-gradle; then
         echo $project
     fi
 
+elif is-sphinx; then
+    properties-get source/conf.py project | strip-python-unicode-tag | strip-quotes
+
 else
     fail "How to get name from: $project?"
 fi

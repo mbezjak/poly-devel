@@ -23,6 +23,9 @@ elif is-playframework; then
 elif is-gradle; then
     properties-set build.gradle version "'$version'"
 
+elif is-sphinx; then
+    properties-set source/conf.py version "'$version'"
+
 elif [[ -x poly-devel/update-version.sh ]]; then
     poly-devel/update-version.sh "$version"
 
