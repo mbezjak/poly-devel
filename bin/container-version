@@ -8,6 +8,10 @@ declare -r project=$(project-dir)
 if is-grails; then
     properties-get application.properties app.grails.version
 
+elif is-gradle; then
+    properties-get gradle/wrapper/gradle-wrapper.properties distributionUrl | \
+        sed 's|.\+gradle-\(.\+\)-bin\.zip$|\1|'
+
 elif is-playframework; then
     awk -F\" '/com.typesafe.play/{print $6}' project/plugins.sbt
 
