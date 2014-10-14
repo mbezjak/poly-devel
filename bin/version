@@ -18,6 +18,9 @@ elif is-playframework; then
 elif is-gradle; then
     properties-get build.gradle version | strip-quotes
 
+elif is-maven; then
+    cat pom.xml | xpath-query '//project/version/text()'
+
 elif is-sphinx; then
     properties-get source/conf.py version | strip-quotes
 

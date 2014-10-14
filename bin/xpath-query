@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+have xpath || fail "Perl xpath tool required.
+In ArchLinux: pacman -S perl-xml-xpath
+In Ubuntu: apt-get install libxml-xpath-perl"
+
+declare -r query="$1"
+xpath "$query" 2> /dev/null
+
+exit 0

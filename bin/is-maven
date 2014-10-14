@@ -1,0 +1,4 @@
+#!/bin/bash
+#
+
+[[ -f pom.xml ]]
