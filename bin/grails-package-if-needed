@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+if grails-needs-packaging; then
+    run-grails package --non-interactive
+fi
+
+exit 0

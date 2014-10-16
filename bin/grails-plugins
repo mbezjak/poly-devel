@@ -6,22 +6,10 @@ set -o errexit
 declare -r plugin="$1"
 declare -r project=$(project-dir)
 
-function find-in {
-    # http://stackoverflow.com/questions/2096490/print-second-last-column-field-in-awk
-    # http://stackoverflow.com/questions/6271348/regex-to-replace-last-occurrence-of-a-string-in-each-line
-    find "$1" -maxdepth 1 -mindepth 1 -printf '%f\n' | \
-        sed -e 's|-\([[:digit:]]\+\.[[:digit:]]\+.*\)$| \1|'
-}
-
-function from-work-dir {
-    local -r dir="$(grails-work-dir)/plugins"
-    [[ -d "$dir" ]] && find-in "$dir"
-    return 0
-}
-
-
 # output: project_name plugin_name plugin_version
-(from-work-dir; grails-plugins-from-code) | sort -k1,1 -k2,2Vr | sort -u -k1,1 | \
+(grails-plugins-from-work-dir; grails-plugins-from-code) | \
+    sort -k1,1 -k2,2Vr | \
+    sort -u -k1,1 | \
     awk -v project="$project" '/^'"$plugin"'/{ print project, $1, $2 }' | \
     column -t
 

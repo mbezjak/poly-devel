@@ -5,6 +5,7 @@ set -o errexit
 
 declare -r version="$1"
 release-pre "$version"
+grails-package-if-needed
 release-post "$version"
 
 exit 0
