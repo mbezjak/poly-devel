@@ -17,7 +17,10 @@ declare -r gradlesyntax="s|\($req\($reg\)*:$artifact:\)$rev\($req\)|\1$version\3
 [[ -z "$artifact" || -z "$version" ]] && usage && die
 
 
-if is-grails; then
+if [[ -x poly-devel/update-dependency.sh ]]; then
+    poly-devel/update-dependency.sh "$artifact" "$version"
+
+elif is-grails; then
     sed -i "$gradlesyntax" grails-app/conf/BuildConfig.groovy
 
 elif is-playframework; then
@@ -25,9 +28,6 @@ elif is-playframework; then
 
 elif is-gradle; then
     sed -i "$gradlesyntax" build.gradle
-
-elif [[ -x poly-devel/update-dependency.sh ]]; then
-    poly-devel/update-dependency.sh "$artifact" "$version"
 
 else
     fail "How to update $artifact to $version in: $project?"

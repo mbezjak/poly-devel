@@ -5,7 +5,10 @@ set -o errexit
 
 declare -r project=$(project-dir)
 
-if is-grails-plugin; then
+if [[ -x poly-devel/version.sh ]]; then
+    poly-devel/version.sh
+
+elif is-grails-plugin; then
     declare -r file=$(grails-find-plugin-descriptor)
     variable-get $file version | strip-quotes
 
@@ -23,9 +26,6 @@ elif is-maven; then
 
 elif is-sphinx; then
     properties-get source/conf.py version | strip-quotes
-
-elif [[ -x poly-devel/version.sh ]]; then
-    poly-devel/version.sh
 
 else
     fail "How to get version from: $project?"

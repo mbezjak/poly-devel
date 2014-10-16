@@ -11,7 +11,10 @@ declare -r project=$(project-dir)
 [[ -z "$version" ]] && usage && die
 
 
-if is-grails-project; then
+if [[ -x poly-devel/update-version.sh ]]; then
+    poly-devel/update-version.sh "$version"
+
+elif is-grails-project; then
     properties-set application.properties app.version $version
 
 elif is-grails-plugin; then
@@ -26,9 +29,6 @@ elif is-gradle; then
 elif is-sphinx; then
     properties-set source/conf.py version "'$version'"
     properties-set source/conf.py release "'$version'"
-
-elif [[ -x poly-devel/update-version.sh ]]; then
-    poly-devel/update-version.sh "$version"
 
 else
     fail "How to update version in: $project?"
