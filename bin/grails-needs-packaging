@@ -8,5 +8,3 @@ function from-work { grails-plugins-from-work-dir | sort; }
 function plugins-from-code-not-in-work { comm -23 <(from-code) <(from-work); }
 
 [[ -n "$(plugins-from-code-not-in-work)" ]]
-
-exit 0
