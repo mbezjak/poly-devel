@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage {
+    cat <<EOF
+Usage: $(basename $0) REPO_NAME REPO_URL
+
+REPO_URL is used when repo doesn't exist locally in any workspace.
+EOF
+}
+
+declare -r reponame="$1"
+declare -r repourl="$2"
+[[ -z "$reponame" || -z "$repourl" ]] && usage && die
+
+declare -r localdir=$(project-find $reponame)
+declare -r tmpdir=/tmp/$reponame
+
+if [[ -d "$localdir" ]]; then
+    echo "$localdir"
+elif [[ -d "$tmpdir" ]]; then
+    echo "$tmpdir"
+else
+    repo-clone "$repourl" "$tmpdir" > /dev/null
+    echo "$tmpdir"
+fi
+
+exit 0
