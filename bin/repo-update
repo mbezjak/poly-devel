@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+if is-hg; then
+    hg pull --update
+
+elif is-git; then
+    git pull --ff-only
+
+else
+    fail "Unknown version control in: $(project-dir)"
+fi
+
+exit 0

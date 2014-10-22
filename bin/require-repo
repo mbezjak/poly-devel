@@ -21,6 +21,8 @@ declare -r tmpdir=/tmp/$reponame
 if [[ -d "$localdir" ]]; then
     echo "$localdir"
 elif [[ -d "$tmpdir" ]]; then
+    cd "$tmpdir"
+    repo-update > /dev/null
     echo "$tmpdir"
 else
     repo-clone "$repourl" "$tmpdir" > /dev/null
