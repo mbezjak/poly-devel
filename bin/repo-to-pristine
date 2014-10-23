@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+if is-hg; then
+    hg revert --no-backup --all
+    hg clean
+
+elif is-git; then
+    git reset HEAD --hard
+    git clean --force
+
+else
+    fail "Unknown version control in: $(project-dir)"
+fi
+
+exit 0

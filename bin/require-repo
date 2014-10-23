@@ -22,6 +22,7 @@ if [[ -d "$localdir" ]]; then
     echo "$localdir"
 elif [[ -d "$tmpdir" ]]; then
     cd "$tmpdir"
+    repo-to-pristine > /dev/null
     repo-update > /dev/null
     echo "$tmpdir"
 else
