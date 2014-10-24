@@ -5,28 +5,39 @@ set -o errexit
 
 function usage {
     cat <<EOF
-Usage: $(basename $0) REPO_NAME REPO_URL
+Usage: $(basename $0) [--cwd] REPO_NAME REPO_URL
 
-REPO_URL is used when repo doesn't exist locally in any workspace.
+REPO_URL is used when repo doesn't exist in any workspace.
+
+Options:
+    --cwd: if repo does not exist in any workspace, clone it to the current
+           working directory instead of in '/tmp'
 EOF
 }
+
+if [[ "$1" == '--cwd' ]]; then
+    declare -r usecwd=y
+    shift
+else
+    declare -r usecwd=n
+fi
 
 declare -r reponame="$1"
 declare -r repourl="$2"
 [[ -z "$reponame" || -z "$repourl" ]] && usage && die
 
-declare -r localdir=$(project-find $reponame)
+declare -r inworkspacedir=$(project-find $reponame)
+declare -r cwdir="$PWD/$reponame"
 declare -r tmpdir=/tmp/$reponame
+function clone-to { repo-clone-or-force-update "$repourl" "$1" > /dev/null; }
 
-if [[ -d "$localdir" ]]; then
-    echo "$localdir"
-elif [[ -d "$tmpdir" ]]; then
-    cd "$tmpdir"
-    repo-to-pristine > /dev/null
-    repo-update > /dev/null
-    echo "$tmpdir"
+if [[ -d "$inworkspacedir" ]]; then
+    echo "$inworkspacedir"
+elif [[ $usecwd == y ]]; then
+    clone-to "$cwdir"
+    echo "$cwdir"
 else
-    repo-clone "$repourl" "$tmpdir" > /dev/null
+    clone-to "$tmpdir"
     echo "$tmpdir"
 fi
 

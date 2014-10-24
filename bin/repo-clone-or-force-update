@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) REPO-URL TO-DIR"; }
+
+declare -r url="$1"
+declare -r dir="$2"
+[[ -z "$url" || -z "$dir" ]] && usage && die
+
+if [[ -d "$dir" ]]; then
+    cd "$dir"
+    repo-to-pristine
+    repo-update
+else
+    repo-clone "$url" "$dir"
+fi
+
+exit 0
