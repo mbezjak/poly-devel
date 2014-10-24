@@ -5,7 +5,7 @@ set -o errexit
 
 if is-hg; then
     hg revert --no-backup --all
-    hg clean
+    hg --config extensions.purge= clean
 
 elif is-git; then
     git reset HEAD --hard
