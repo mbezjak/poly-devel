@@ -13,6 +13,7 @@ SYNOPSIS
     $prog stop
     $prog restart
     $prog log
+    $prog version
     $prog clean
     $prog deploy WAR_FILE [CONTEXT_NAME]
 EOF
@@ -28,6 +29,9 @@ function start   { (jump; bin/startup.sh;) }
 function stop    { (jump; bin/shutdown.sh;) }
 function restart { stop; start; }
 function log     { tail -F "$instance/logs/catalina.out"; }
+function version {
+    "$instance"/bin/version.sh | awk -F/ '/Server version/{print $2}'
+}
 function clean   {
     rm -rf "$instance"/*.log
     rm -rf "$instance"/{temp,work,logs}/*
@@ -54,6 +58,7 @@ case "$1" in
     stop)    stop ;;
     restart) restart ;;
     log)     log ;;
+    version) version ;;
     clean)   clean ;;
     deploy)  deploy "$2" "$3" ;;
     *)       usage && die ;;
