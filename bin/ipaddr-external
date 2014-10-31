@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+curl http://ifconfig.me
+
+exit 0

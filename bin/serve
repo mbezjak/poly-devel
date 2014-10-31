@@ -3,9 +3,13 @@
 
 set -o errexit
 
+function identify { echo "hostname=$(hostname); ip=$(ipaddr-local)"; }
+
 if have python3; then
+    identify
     python3 -m http.server
 elif have python2; then
+    identify
     python2 -m SimpleHTTPServer
 else
     fail "First install python"

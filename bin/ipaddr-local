@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+# http://stackoverflow.com/questions/13322485/how-to-i-get-the-primary-ip-address-of-the-local-machine-on-linux-and-os-x
+ifconfig | \
+    grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | \
+    awk '{print $2}' | \
+    grep -v '127.0.0.1'
+
+exit 0
