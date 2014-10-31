@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+if [[ $(username) == jenkins ]]; then
+    # jenkins needs to contain the repo to CWD because of concurrent builds
+    require-repo --cwd "$@"
+else
+    require-repo "$@"
+fi
+
+exit 0

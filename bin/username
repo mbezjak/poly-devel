@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+
+# because: echo $USER == sudo echo $USER
+id --user --name
