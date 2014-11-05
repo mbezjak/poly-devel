@@ -1,0 +1,40 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) SERVER-URL"; }
+declare -r url="$1"
+[[ -z "$url" ]] && usage && die
+
+function server-status {
+    curl --silent --location -o /dev/null --write-out '%{http_code}' "$url"
+    return 0
+}
+function server-is-up-and-running {
+    local -r status=$(server-status)
+    local -r connectionRefused=0
+    local -r unavailable=503
+
+    # note: currently modelled after jenkins
+    (( "$status" != $connectionRefused )) && (( "$status" != $unavailable ))
+}
+
+declare -r maxSleep=60
+declare -r sleepStep=2
+declare sleptFor=0
+function wait {
+    if (( $sleptFor > $maxSleep )); then
+        fail "Refusing to wait longer than $maxSleep seconds"
+    fi
+
+    sleep $sleepStep
+    sleptFor=$((sleptFor + sleepStep))
+}
+
+
+while ! server-is-up-and-running; do
+    wait
+done
+
+exit 0
