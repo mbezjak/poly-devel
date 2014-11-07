@@ -23,10 +23,10 @@ declare -r instance="$CATALINA_HOME"
 [[ -z "$instance" ]] && fail "\$CATALINA_HOME must be set"
 [[ ! -d "$instance" ]] && fail "Directory \$CATALINA_HOME=$instance doesn't not exist"
 
-# cd to contain the log files
+# cd to contain the log files and PID
 function jump    { cd "$instance"; }
-function start   { (jump; bin/startup.sh;) }
-function stop    { (jump; bin/shutdown.sh;) }
+function start   { (jump; CATALINA_PID=pid bin/startup.sh;) }
+function stop    { (jump; CATALINA_PID=pid bin/shutdown.sh;) }
 function restart { stop; start; }
 function log     { tail -F "$instance/logs/catalina.out"; }
 function version {
