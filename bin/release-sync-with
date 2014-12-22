@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) ANOTHER_PROJECT_NAME"; }
+
+declare -r toproject="$1"
+declare -r todir=$(project-find "$toproject")
+declare -r thisproject=$(project-name)
+declare -r thisversion=$(version)
+
+[[ -z "$toproject" ]] && usage && die
+
+if [[ -d "$todir" ]]; then
+    cd "$todir"
+    echo y | release "$thisversion"
+    msg "Released $toproject $thisversion to keep in sync with $thisproject"
+else
+    warn "It's a shame! $toproject could have been automatically released to keep in sync with $thisproject if only you had it"
+fi
+
+exit 0
