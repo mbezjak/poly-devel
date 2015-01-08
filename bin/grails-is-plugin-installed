@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) PLUGIN_NAME"; }
+declare -r plugin="$1"
+[[ -z "$plugin" ]] && usage && die
+
+declare -r aboutplugin=$(grails-plugins | grep "$plugin")
+[[ -z "$aboutplugin" ]] && die
+
+exit 0
