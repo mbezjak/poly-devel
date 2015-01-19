@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r project=$(project-dir)
+
+if is-grails; then
+    project-name
+
+elif is-gradle; then
+    project-name
+
+elif is-maven; then
+    cat pom.xml | xpath-query '//project/artifactId/text()'
+
+else
+    fail "How to get artifact ID from: $project?"
+fi
+
+exit 0

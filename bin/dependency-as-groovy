@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+echo "'$(project-group):$(project-artifact):$(version)'"
+
+exit 0
