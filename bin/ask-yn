@@ -5,9 +5,10 @@ set -o errexit
 
 read answer
 
-if   [[ "$answer" == y ]]; then echo y
-elif [[ "$answer" == n ]]; then echo n
-elif [[ -z "$answer" ]];   then echo ${1:-y}
+declare -r lowercase="${answer,,}"
+if   [[ "$lowercase" == y ]]; then echo y
+elif [[ "$lowercase" == n ]]; then echo n
+elif [[ -z "$lowercase" ]];   then echo ${1:-y}
 else die
 fi
 
