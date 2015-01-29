@@ -8,7 +8,7 @@ declare -r version="$1"
 release-pre "$version"
 
 declare -r tasks=$(run-gradle tasks)
-function has-task { [[ echo "$tasks" | grep "^$1" &> /dev/null ]]; }
+function has-task { [[ $(echo "$tasks" | grep -c "^$1") == 1 ]]; }
 if has-task uploadArchives; then
     run-gradle clean build uploadArchives
 else
