@@ -6,7 +6,15 @@ set -o errexit
 declare -r version="$1"
 
 release-pre "$version"
-run-gradle clean build uploadArchives
+
+declare -r tasks=$(run-gradle tasks)
+function has-task { [[ echo "$tasks" | grep "^$1" &> /dev/null ]]; }
+if has-task uploadArchives; then
+    run-gradle clean build uploadArchives
+else
+    run-gradle clean build
+fi
+
 release-post "$version"
 
 exit 0
