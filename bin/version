@@ -15,8 +15,11 @@ elif is-grails-plugin; then
 elif is-grails-project; then
     properties-get application.properties app.version
 
-elif is-playframework; then
+elif is-playframework-lt23; then
     variable-get project/Build.scala appVersion | strip-quotes
+
+elif is-playframework-ge23; then
+    awk '/^version/{print $3}' build.sbt | strip-quotes
 
 elif is-gradle; then
     properties-get build.gradle version | strip-quotes

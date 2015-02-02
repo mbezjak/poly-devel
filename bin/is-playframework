@@ -1,4 +1,4 @@
 #!/bin/bash
 #
 
-[[ -f project/Build.scala ]]
+is-playframework-lt23 || is-playframework-ge23

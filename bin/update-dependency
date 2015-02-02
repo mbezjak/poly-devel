@@ -24,7 +24,13 @@ elif is-grails; then
     sed -i "$gradlesyntax" grails-app/conf/BuildConfig.groovy
 
 elif is-playframework; then
-    sed -i "s|\($reg %\+ \"$artifact\" % \)$rev|\1\"$version\"|" project/Build.scala
+    if is-playframework-lt23; then
+        declare -r buildfile=project/Build.scala
+    else
+        declare -r buildfile=build.sbt
+    fi
+
+    sed -i "s|\($reg %\+ \"$artifact\" % \)$rev|\1\"$version\"|" $buildfile
 
 elif is-gradle; then
     sed -i "$gradlesyntax" build.gradle

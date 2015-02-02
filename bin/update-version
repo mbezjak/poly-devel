@@ -20,8 +20,11 @@ elif is-grails-project; then
 elif is-grails-plugin; then
     variable-set $(grails-find-plugin-descriptor) version "'$version'"
 
-elif is-playframework; then
+elif is-playframework-lt23; then
     variable-set project/Build.scala appVersion "\"$version\""
+
+elif is-playframework-ge23; then
+    sed -i "s|version := \"$(regex-version)\"|version := \"$version\"|" build.sbt
 
 elif is-gradle; then
     properties-set build.gradle version "'$version'"

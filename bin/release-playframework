@@ -6,7 +6,13 @@ set -o errexit
 declare -r version="$1"
 
 release-pre "$version"
-play clean dist
+
+if is-playframework-lt23; then
+    play clean dist
+else
+    ./activator clean dist universal:package-zip-tarball
+fi
+
 release-post "$version"
 
 exit 0

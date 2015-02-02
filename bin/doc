@@ -17,7 +17,11 @@ if is-gradle; then
     fi
 
 elif is-playframework; then
-    play doc
+    if is-playframework-lt23; then
+        play doc
+    else
+        ./activator doc
+    fi
     open target/scala-*/api/index.html
 
 elif is-maven; then

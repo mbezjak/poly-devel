@@ -1,0 +1,4 @@
+#!/bin/bash
+#
+
+[[ -f build.sbt ]] && contains-exact 'enablePlugins(PlayScala)' build.sbt
