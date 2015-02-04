@@ -4,7 +4,7 @@
 set -o errexit
 
 if is-hg; then
-    hg tags --quiet
+    hg tags --quiet | grep -v '^tip$'
 
 elif is-git; then
     git tag --list
