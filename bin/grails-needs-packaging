@@ -5,6 +5,6 @@ set -o errexit
 
 function from-code { grails-plugins-from-code | sort; }
 function from-work { grails-plugins-from-work-dir | sort; }
-function plugins-from-code-not-in-work { comm -23 <(from-code) <(from-work); }
+function plugins-that-are-not-installed { comm -23 <(from-code) <(from-work); }
 
-[[ -n "$(plugins-from-code-not-in-work)" ]]
+[[ -n "$(plugins-that-are-not-installed)" ]]
