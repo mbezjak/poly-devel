@@ -2,12 +2,23 @@
 #
 
 declare -r version="$1"
-declare -r file=Changelog.md
 
-if [[ -f $file ]]; then
-    grep -q "^# $version" $file ||
-        fail "Missing changelog entry for version: $version"
+function check-in-file {
+    local -r pattern="$1"
+    local -r file="$2"
 
-else
-    exit 0
-fi
+    grep -q "$pattern" "$file" ||
+        fail "Missing changelog entry for version '$version' in file: $file"
+}
+function if-file-exists-then-check {
+    local -r pattern="$1"
+    local -r file="$2"
+
+    [[ -f "$file" ]] && check-in-file "$pattern" "$file"
+}
+
+
+if-file-exists-then-check "^# $version" Changelog.md
+if-file-exists-then-check "^$version$" src/docs/releasenotes.rst
+
+exit 0
