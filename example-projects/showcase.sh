@@ -12,6 +12,9 @@ function switch-to {
 function separate-project-output { newline; newline; }
 function interact { echo "[$(basename $PWD)] \$ $@"; "$@"; }
 
+
+# START INTERACTING
+
 switch-to gradle-library
 interact status-for is-gradle
 interact project-dir
