@@ -11,6 +11,26 @@ function switch-to {
 }
 function separate-project-output { newline; newline; }
 function interact { echo "[$(basename $PWD)] \$ $@"; "$@"; }
+function interact-with-version {
+    local -r orig=$(version)
+    interact version
+    interact update-version 9.9.9
+    interact version
+    update-version $orig
+}
+function interact-with-dependencies {
+    local -r dependency="$1"
+    local -r file="$2"
+    if is-gradle; then
+         local -r origver=$(awk -F: "/$dependency/"'{print $NF}' $file | strip-quotes)
+    elif is-playframework-lt23; then
+         local -r origver=$(awk "/$dependency/"'{print $NF}' $file | strip-quotes)
+    fi
+    interact grep $dependency $file
+    interact update-dependency $dependency 9.9.9
+    interact grep $dependency $file
+    update-dependency $dependency $origver
+}
 
 
 # START INTERACTING
@@ -22,14 +42,19 @@ interact project-name
 interact project-group
 interact project-artifact
 interact container-version
-interact version
-interact update-version 0.9.9
-interact version
-interact update-version 0.1
-interact grep groovy-all build.gradle
-interact update-dependency groovy-all 2.9.9
-interact grep groovy-all build.gradle
-interact update-dependency groovy-all 2.4.1
+interact-with-version
+interact-with-dependencies groovy-all build.gradle
+
+
+separate-project-output
+switch-to playframework-2.2.1-project
+interact status-for is-playframework
+interact status-for is-playframework-lt23
+interact project-dir
+interact project-name
+interact container-version
+interact-with-version
+interact-with-dependencies scalaz-core project/Build.scala
 
 
 separate-project-output
