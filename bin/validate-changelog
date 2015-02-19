@@ -1,6 +1,8 @@
 #!/bin/bash
 #
 
+set -o errexit
+
 declare -r version="$1"
 
 function check-in-file {
@@ -14,7 +16,11 @@ function if-file-exists-then-check {
     local -r pattern="$1"
     local -r file="$2"
 
-    [[ -f "$file" ]] && check-in-file "$pattern" "$file"
+    if [[ -f "$file" ]]; then
+        check-in-file "$pattern" "$file"
+    else
+        return 0
+    fi
 }
 
 
