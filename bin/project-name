@@ -6,7 +6,8 @@ set -o errexit
 declare -r project=$(project-dir)
 
 if is-grails; then
-    properties-get application.properties app.name
+    declare -r candidate=$(properties-get application.properties app.name)
+    echo "${candidate:-$(project-dir)}"
 
 elif is-playframework-lt23; then
     variable-get project/Build.scala appName | strip-quotes
