@@ -21,11 +21,7 @@ function interact-with-version {
 function interact-with-dependencies {
     local -r dependency="$1"
     local -r file="$2"
-    if is-gradle; then
-         local -r origver=$(awk -F: "/$dependency/"'{print $NF}' $file | strip-quotes)
-    elif is-playframework-lt23; then
-         local -r origver=$(awk "/$dependency/"'{print $NF}' $file | strip-quotes)
-    fi
+    local -r origver=$(grep $dependency $file | dependency-parse | dependency-extract-part version)
     interact grep $dependency $file
     interact update-dependency $dependency 9.9.9
     interact grep $dependency $file
