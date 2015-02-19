@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+
+# currenly the same
+echo "$(regex-mvn-group)"

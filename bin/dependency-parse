@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r req=$(regex-quotes)
+declare -r rev=$(regex-version)
+declare -r reg=$(regex-mvn-group)
+declare -r rea=$(regex-mvn-artifact)
+declare -r resbtsep=" *%\{1,2\} *"
+declare -r gradlesyntax="s|.*$req\($reg\)\?:\($rea\):\($rev\)$req.*|\1\t\2\t\3|p"
+declare -r sbtsyntax="s|.*$req\($reg\)$req$resbtsep$req\($rea\)$req$resbtsep$req\($rev\)$req.*|\1\t\2\t\3|p"
+
+sed -n -e "$gradlesyntax" -e "$sbtsyntax"
+
+exit 0

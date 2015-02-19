@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) group|artifact|version"; }
+function extract-field { awk -F'\t' "{print \$$1}"; }
+
+declare -r part="$1"
+case "$part" in
+    group)    extract-field 1 ;;
+    artifact) extract-field 2 ;;
+    version)  extract-field 3 ;;
+    *)        usage && die ;;
+esac
+
+exit 0
