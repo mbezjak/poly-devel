@@ -11,6 +11,6 @@ declare -r value="$3"
 [[ -z "$file" || -z "$varname" ]] && usage && die
 validate-file-exists "$file"
 
-sed -i "s/^\(\s*\(val\|var\|def\)\s\+$varname\s*=\s*\).*$/\1$value/" $file
+sed -i "s/^\(\s*\(val\|var\|def\|String\)\s\+$varname\s*=\s*\).*$/\1$value/" $file
 
 exit 0
