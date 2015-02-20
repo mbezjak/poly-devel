@@ -65,6 +65,13 @@ interact-with-dependencies scalaz-core build.sbt
 
 
 separate-project-output
+switch-to sphinx-project
+interact status-for is-sphinx
+interact project-dir
+interact project-name
+interact-with-version
+
+separate-project-output
 switch-to maven-project
 interact status-for is-maven
 interact project-dir
