@@ -1,4 +1,4 @@
 #!/bin/bash
 #
 
-is-repo-root && [ -f Makefile ] && [ -f source/conf.py ]
+[ -f Makefile ] && [ -f source/conf.py ] && grep -q -i sphinx Makefile
