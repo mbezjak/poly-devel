@@ -54,6 +54,17 @@ interact-with-dependencies scalaz-core project/Build.scala
 
 
 separate-project-output
+switch-to playframework-2.3.8-project
+interact status-for is-playframework
+interact status-for is-playframework-ge23
+interact project-dir
+interact project-name
+interact container-version
+interact-with-version
+interact-with-dependencies scalaz-core build.sbt
+
+
+separate-project-output
 switch-to maven-project
 interact status-for is-maven
 interact project-dir
