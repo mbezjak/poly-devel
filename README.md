@@ -16,7 +16,7 @@ mean for example:
 
 ## Example
 
-`version` is a command that is simply outputs the current project or plugin
+`version` is a command that simply outputs the current project or plugin
 version.
 
 Hypothetical scenario:
