@@ -31,7 +31,7 @@ function interact-with-dependencies {
 
 # START INTERACTING
 
-switch-to gradle-library
+switch-to gradle
 interact status-for is-gradle
 interact project-dir
 interact project-name
@@ -43,7 +43,7 @@ interact-with-dependencies groovy-all build.gradle
 
 
 separate-project-output
-switch-to playframework-2.2.1-project
+switch-to playframework-2.2
 interact status-for is-playframework
 interact status-for is-playframework-lt23
 interact project-dir
@@ -54,7 +54,7 @@ interact-with-dependencies scalaz-core project/Build.scala
 
 
 separate-project-output
-switch-to playframework-2.3.8-project
+switch-to playframework-2.3
 interact status-for is-playframework
 interact status-for is-playframework-ge23
 interact project-dir
@@ -65,14 +65,14 @@ interact-with-dependencies scalaz-core build.sbt
 
 
 separate-project-output
-switch-to sphinx-project
+switch-to sphinx
 interact status-for is-sphinx
 interact project-dir
 interact project-name
 interact-with-version
 
 separate-project-output
-switch-to maven-project
+switch-to maven
 interact status-for is-maven
 interact project-dir
 interact project-name
