@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+
+for path in $(html-try-paths); do
+    if [[ -f $path ]]; then
+        echo $path
+    fi
+done
+
+exit 0
