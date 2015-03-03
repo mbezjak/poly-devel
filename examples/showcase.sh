@@ -31,6 +31,21 @@ function interact-with-dependencies {
 
 # START INTERACTING
 
+switch-to grails-plugin
+interact status-for is-grails
+interact status-for is-grails-plugin
+interact status-for is-grails-project
+interact project-dir
+interact project-name
+interact project-group
+interact project-artifact
+interact container-version
+interact-with-version
+interact grails-plugins
+interact-with-dependencies poi grails-app/conf/BuildConfig.groovy
+
+
+separate-project-output
 switch-to gradle
 interact status-for is-gradle
 interact project-dir
