@@ -101,6 +101,12 @@ interact-with-version
 
 
 separate-project-output
+switch-to custom
+interact project-dir
+interact-with-version
+
+
+separate-project-output
 switch-to maven
 interact status-for is-maven
 interact project-dir
