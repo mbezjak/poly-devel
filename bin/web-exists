@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) URL"; }
+declare -r url="$1"
+[[ -z "$url" ]] && usage && die
+
+curl --silent --fail --output /dev/null "$url"
+
+exit 0

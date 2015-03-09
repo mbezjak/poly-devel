@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) HGWEB-URL"; }
+declare -r base="$1"
+[[ -z "$base" ]] && usage && die
+
+hgweb-list "$base" | parallel --jobs 10 "web-echo-if-exists $base/{}/file/tip/src/main/groovy {}"
+
+exit 0

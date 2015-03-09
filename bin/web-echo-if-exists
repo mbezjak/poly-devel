@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) URL ECHO-STRING"; }
+declare -r url="$1"
+declare -r string="$2"
+[[ -z "$url" ]] && usage && die
+
+if web-exists "$url"; then
+    echo "$string"
+fi
+
+exit 0

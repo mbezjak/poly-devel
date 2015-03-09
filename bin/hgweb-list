@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) HGWEB-URL"; }
+declare -r base="$1"
+[[ -z "$base" ]] && usage && die
+
+curl --silent "$base" | pup 'table tbody tr td a[class=list] attr{href}'
+
+exit 0
