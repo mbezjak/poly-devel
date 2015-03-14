@@ -5,8 +5,8 @@ Scripts that simplify polyglot development.
 ## What is this project about?
 
 This project contains a set of commands that unify information retrieval and
-code updates across supported project types. By a loose term `project type` I
-mean for example:
+code updates across supported project types. Term `project type` here means,
+for example:
 
 * gradle based projects or libraries
 * maven based projects or libraries
