@@ -6,7 +6,7 @@ set -o errexit
 declare -r file=$(html-existing-paths | head -n 1)
 
 if [[ -n $file ]]; then
-    open $file
+    xdg-open $file
 fi
 
 exit 0

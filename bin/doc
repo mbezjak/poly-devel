@@ -8,10 +8,10 @@ declare -r project=$(project-dir)
 if is-gradle; then
     if [[ -d src/main/groovy ]]; then
         run-gradle groovydoc
-        open build/docs/groovydoc/index.html
+        xdg-open build/docs/groovydoc/index.html
     elif [[ -d src/main/java ]]; then
         run-gradle javadoc
-        open build/docs/javadoc/index.html
+        xdg-open build/docs/javadoc/index.html
     else
         fail "Unknown gradle project: $project"
     fi
@@ -22,19 +22,19 @@ elif is-playframework; then
     else
         ./activator doc
     fi
-    open target/scala-*/api/index.html
+    xdg-open target/scala-*/api/index.html
 
 elif is-maven; then
     mvn javadoc:javadoc
-    open target/site/apidocs/index.html
+    xdg-open target/site/apidocs/index.html
 
 elif [[ -f src/docs/index.rst ]]; then
     make -C src/docs html
-    open target/manual/html/index.html
+    xdg-open target/manual/html/index.html
 
 elif [[ -d src/main/javascript ]]; then
     make doc
-    open target/jsdoc/index.html
+    xdg-open target/jsdoc/index.html
 
 else
     fail "How to document: $project?"
