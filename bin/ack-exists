@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+
+declare -r count=$(ack-count "$@")
+[[ -n "$count" && "$count" != 0 ]]

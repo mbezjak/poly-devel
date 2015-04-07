@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r prog=$(have ack && echo ack || echo ack-grep)
+$prog --noenv --ignore-dir=target --ignore-dir=build "$@"
+
+exit 0
