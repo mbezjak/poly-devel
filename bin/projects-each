@@ -1,0 +1,31 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage {
+    local -r prog=$(basename "$0")
+    cat <<EOF
+$prog - execute 'cmd' on each project in workspace that satisfies a 'predicate'
+
+SYNOPSIS
+    $prog predicate cmd
+
+EXAMPLE
+    $prog is-grails-project container-version
+EOF
+}
+
+declare -r predicate="$1"
+declare -r cmd="$2"
+[[ -z "$predicate" || -z "$cmd" ]] && usage && die
+
+for project in $(projects); do
+    cd $project
+    if eval "$predicate"; then
+        echo -n $(project-dir) ' '
+        eval "$cmd"
+    fi
+done | column -t
+
+exit 0
