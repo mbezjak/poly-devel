@@ -1,0 +1,4 @@
+#!/bin/bash
+#
+
+cloc-project | awk '/^SUM:/{print $5}'

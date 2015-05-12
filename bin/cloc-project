@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+cloc --quiet \
+     --exclude-dir=target,build,ace \
+     --not-match-f='(-all\.js$|-all-debug\.js$|grailsw\.bat$|grailsw$|gradlew\.bat$|gradlew$)' \
+     "$PWD" \
+     "$@"
+
+exit 0
