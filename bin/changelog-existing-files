@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+for file in $(changelog-try-files); do
+    if [[ -f $file ]]; then
+        echo $file
+    fi
+done
+
+exit 0

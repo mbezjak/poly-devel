@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+
+echo Changelog.md
+echo src/docs/releasenotes.rst
+
+exit 0

@@ -1,0 +1,4 @@
+#!/bin/bash
+#
+
+changelog-existing-files | head -n 1

@@ -5,26 +5,22 @@ set -o errexit
 
 declare -r version="$1"
 
-function check-in-file {
-    local -r pattern="$1"
-    local -r file="$2"
+function pattern-from-extension {
+    local -r ext="$1"
+
+    if   [[ $ext == md ]];  then echo "^# $version"
+    elif [[ $ext == rst ]]; then echo "^$version$"
+    fi
+
+    return 0
+}
+
+if changelog-file-exists; then
+    declare -r file=$(changelog-find-file)
+    declare -r pattern=$(pattern-from-extension $(extension $file))
 
     grep -q "$pattern" "$file" ||
         fail "Missing changelog entry for version '$version' in file: $file"
-}
-function if-file-exists-then-check {
-    local -r pattern="$1"
-    local -r file="$2"
-
-    if [[ -f "$file" ]]; then
-        check-in-file "$pattern" "$file"
-    else
-        return 0
-    fi
-}
-
-
-if-file-exists-then-check "^# $version" Changelog.md
-if-file-exists-then-check "^$version$" src/docs/releasenotes.rst
+fi
 
 exit 0
