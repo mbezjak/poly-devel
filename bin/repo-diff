@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+if is-hg; then
+    hg diff --git
+
+elif is-git; then
+    git diff
+
+else
+    fail "Unknown version control in: $(project-dir)"
+fi
+
+exit 0

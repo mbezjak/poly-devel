@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r version="$1"
+declare -r pattern=$(changelog-header-pattern $version)
+
+grep -q "$pattern"
+
+exit 0

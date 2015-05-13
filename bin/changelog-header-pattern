@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r version="$1"
+declare -r file=$(changelog-find-file)
+declare -r ext=$(extension $file)
+
+if   [[ "$ext" == md ]];  then echo "^# $version"
+elif [[ "$ext" == rst ]]; then echo "^$version$"
+fi
+
+exit 0

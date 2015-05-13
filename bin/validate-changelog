@@ -5,21 +5,10 @@ set -o errexit
 
 declare -r version="$1"
 
-function pattern-from-extension {
-    local -r ext="$1"
-
-    if   [[ $ext == md ]];  then echo "^# $version"
-    elif [[ $ext == rst ]]; then echo "^$version$"
-    fi
-
-    return 0
-}
-
 if changelog-file-exists; then
     declare -r file=$(changelog-find-file)
-    declare -r pattern=$(pattern-from-extension $(extension $file))
 
-    grep -q "$pattern" "$file" ||
+    ( cat "$file" | changelog-has-header $version ) ||
         fail "Missing changelog entry for version '$version' in file: $file"
 fi
 

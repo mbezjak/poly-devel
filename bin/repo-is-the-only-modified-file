@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r file="$1"
+[[ $(repo-dirty) != 1 ]] && exit 1
+
+if is-hg; then
+    hg status | grep -q " $file$"
+
+elif is-git; then
+    git status --short | grep -q " $file$"
+
+else
+    fail "Unknown version control in: $(project-dir)"
+fi
+
+exit 0
