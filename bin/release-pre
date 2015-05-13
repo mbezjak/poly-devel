@@ -11,7 +11,7 @@ release-commit-changelog "$version"
 validate-uncommited
 validate-not-tagged "$version"
 validate-changelog "$version"
-release-commit "$version"
+release-commit-version "$version"
 validate-version-match "$version"
 
 exit 0
