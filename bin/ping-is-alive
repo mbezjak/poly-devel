@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+
+function usage { echo "Usage: $(basename $0) HOST"; }
+declare -r host="$1"
+[[ -z "$host" ]] && usage && die
+
+ping -c 1 "$host" &> /dev/null
