@@ -4,6 +4,9 @@
 set -o errexit
 
 declare -r prog=$(have ack && echo ack || echo ack-grep)
-$prog --noenv --ignore-dir=target --ignore-dir=build "$@"
+$prog --noenv \
+      --ignore-dir=target --ignore-dir=build \
+      --ignore-file='match:/[.]log([.]\d{4}[-]\d{2})?$/' \
+      "$@"
 
 exit 0
