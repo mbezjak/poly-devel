@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+
+tree -a --prune \
+     -I '.hg*|target|wrapper|WEB-INF|plugin.xml|LICENSE.txt|grailsw*' \
+     "$@"
