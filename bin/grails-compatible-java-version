@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r grailsversion=$(container-version)
+
+if [[ "$grailsversion" =~ ^1\..+$ ]]; then
+    echo -e '6\n7'
+elif [[ "$grailsversion" =~ ^2\.(0|1|2|3|4)\..+$ ]]; then
+    echo 7
+else
+    echo -e '7\n8'
+fi
+
+exit 0

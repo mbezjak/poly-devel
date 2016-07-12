@@ -3,6 +3,10 @@
 
 set -o errexit
 
+if is-grails; then
+    validate-grails-java-version
+fi
+
 if [[ -x grailsw ]]; then
     if [[ -n "$@" ]]; then
         # disable jline because I don't like the fact that it eats my enter keys

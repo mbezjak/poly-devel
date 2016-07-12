@@ -6,6 +6,7 @@ set -o errexit
 declare -r version="$1"
 
 release-pre "$version"
+validate-grails-java-version
 grails-package-if-needed
 
 if [[ $(container-version) == 2.* ]]; then

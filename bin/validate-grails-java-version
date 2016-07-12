@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+
+if have java; then
+    declare -r javaversion=$(java-major-version)
+    grails-compatible-java-version | contains $javaversion || \
+        fail "Java $javaversion is not compatible with grails project version $(container-version)"
+
+else
+    exit 0
+fi
