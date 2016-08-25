@@ -14,6 +14,7 @@ declare -r thisversion=$(version)
 
 if [[ -d "$todir" ]]; then
     cd "$todir"
+    repo-sync
     anchor-dependency "$thisproject" "$thisversion"
 else
     warn "It's a shame! $thisproject could have been automatically updated in $toproject if only you had it"
