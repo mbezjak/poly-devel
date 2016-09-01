@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+if grails-plugin-needs-packaging; then
+    run-grails package-plugin --non-interactive
+    rm -f *.zip
+fi
+
+exit 0

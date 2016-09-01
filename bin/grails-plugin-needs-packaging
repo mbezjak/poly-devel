@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+if [[ -f plugin.xml ]]; then
+    declare -r inproperties=$(version)
+    declare -r inpluginxml=$(sed -n "s|^<plugin name=.\+ version='\(.\+\)' grailsVersion=.\+$|\1|p" plugin.xml)
+    [[ "$inproperties" != "$inpluginxml" ]]
+
+else
+    exit 1
+fi
