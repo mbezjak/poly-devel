@@ -3,5 +3,6 @@
 
 echo Changelog.md
 echo src/docs/releasenotes.rst
+echo grails-app/conf/Changelog.groovy
 
 exit 0

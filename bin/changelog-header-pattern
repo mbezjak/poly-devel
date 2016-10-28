@@ -7,8 +7,10 @@ declare -r version="$1"
 declare -r file=$(changelog-find-file)
 declare -r ext=$(extension $file)
 
-if   [[ "$ext" == md ]];  then echo "^# $version"
-elif [[ "$ext" == rst ]]; then echo "^$version$"
+if   [[ "$ext" == md ]];     then echo "^# $version"
+elif [[ "$ext" == rst ]];    then echo "^$version$"
+elif [[ "$ext" == groovy ]]; then echo "^version\s*(\s*['\"]$version['\"]\s*:"
+else                              echo "^$version$"
 fi
 
 exit 0
