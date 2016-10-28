@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+
+function usage { echo "Usage: $(basename $0) VERSION"; }
+declare -r version="$1"
+[[ -z "$version" ]] && usage && die
+
+function only-changelog-is-modified {
+    local -r file=$(changelog-find-file)
+
+    changelog-file-exists &&
+        repo-is-the-only-modified-file $file &&
+        ( repo-diff-additions | changelog-has-header $version )
+}
+
+
+repo-is-clean || only-changelog-is-modified ||
+    fail "To ensure script automation stability, only changelog can remain uncommitted: $(project-dir)"
