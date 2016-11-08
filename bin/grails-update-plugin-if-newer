@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+function usage { echo "Usage: $(basename $0) PLUGIN_NAME TO_VERSION"; }
+declare -r plugin="$1"
+declare -r neededVersion="$2"
+[[ -z "plugin" || -z "$neededVersion" ]] && usage && die
+declare -r currentVersion=$(grails-plugins "$plugin" | awk '{print $3}')
+
+if [[ -n "$currentVersion" && "$currentVersion" < "$neededVersion" ]]; then
+    update-dependency "$plugin" "$neededVersion"
+fi
+
+exit 0
