@@ -13,6 +13,6 @@ function plugins {
   done
 }
 
-plugins | column -t
+plugins | sort --key=3 --sort=version | column -t
 
 exit 0
