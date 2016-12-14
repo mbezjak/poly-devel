@@ -15,6 +15,9 @@ elif is-gradle; then
 elif is-playframework; then
     awk -F\" '/com.typesafe.play/{print $6}' project/plugins.sbt
 
+elif is-sbt; then
+    properties-get project/build.properties sbt.version
+
 else
     fail "What is the container for: $project?"
 fi

@@ -26,6 +26,9 @@ elif is-playframework-lt23; then
 elif is-playframework-ge23; then
     sed -i "s|version := \"$(regex-version)\"|version := \"$version\"|" build.sbt
 
+elif is-sbt; then
+    sed -i "s|version\(\s*\):= \"$(regex-version)\"|version\1:= \"$version\"|" build.sbt
+
 elif is-gradle; then
     properties-set build.gradle version "'$version'"
 

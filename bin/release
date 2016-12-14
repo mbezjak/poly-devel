@@ -23,6 +23,9 @@ elif is-grails-plugin; then
 elif is-playframework; then
     release-playframework "$@"
 
+elif is-sbt; then
+    release-sbt "$@"
+
 elif is-gradle; then
     release-gradle "$@"
 

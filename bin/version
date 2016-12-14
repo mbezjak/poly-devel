@@ -21,6 +21,9 @@ elif is-playframework-lt23; then
 elif is-playframework-ge23; then
     awk '/^version/{print $3}' build.sbt | strip-quotes
 
+elif is-sbt; then
+    awk '/^version\s*:=/{print $3}' build.sbt | strip-quotes
+
 elif is-gradle; then
     properties-get build.gradle version | strip-quotes
 
