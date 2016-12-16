@@ -14,6 +14,7 @@ declare -r thisversion=$(version)
 
 if [[ -d "$todir" ]]; then
     cd "$todir"
+    repo-sync
     echo y | release "$thisversion"
     msg "Released $toproject $thisversion to keep in sync with $thisproject"
 else
