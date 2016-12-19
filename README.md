@@ -37,7 +37,7 @@ Do you have [napalm](http://github.com/mbezjak/napalm)?
 
     $ napalm install polydevel latest
 
-But you probably don't have napalm installed. In that case:
+If not then:
 
 1. download [this project](https://github.com/mbezjak/napalm/archive/master.tar.gz)
 2. add all scripts in `bin` to `/usr/local/bin`
