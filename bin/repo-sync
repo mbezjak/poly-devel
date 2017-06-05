@@ -20,7 +20,7 @@ git_outgoing()     { git_inout origin/master..master; }
 git_fast_forward() { git merge --quiet --ff-only origin/master; }
 
 hg_count_dirty()   { hg status | wc -l; }
-hg_inout()  { hg --quiet "$1" --template '{author|person} {desc|firstline}\n' 2> /dev/null; }
+hg_inout()  { hg --quiet "$1" --template '{rev} {author|person} {desc|firstline}\n' 2> /dev/null; }
 hg_incoming()      { hg_inout incoming; }
 hg_outgoing()      { hg_inout outgoing; }
 hg_fast_forward()  { hg --quiet pull --update; }
