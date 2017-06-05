@@ -3,6 +3,6 @@
 
 set -o errexit
 
-projects | parallel --jobs 10 "cd {}; repo-sync"
+projects | parallel --jobs 10 "cd {}; repo-sync $@"
 
 exit 0

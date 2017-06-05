@@ -4,6 +4,7 @@
 set -o errexit
 
 [[ -d .git ]] && cmd=git || cmd=hg
+[[ "$1" == "ro" ]] && declare -r readonly=y
 project=$(project-dir)
 
 
@@ -41,15 +42,14 @@ echoc_in()       { color_green  ; echo_state in    $1 ; color_reset; }
 echoc_out()      { color_red    ; echo_state out   $1 ; color_reset; }
 echoc_dirty()    { color_orange ; echo_state dirty $1 ; color_reset; }
 
-
 fetch
 dirty=$(count_dirty)
 cin=$(count_incoming)
 cout=$(count_outgoing)
 
 [[ "$dirty" -eq 0 && "$cout" -eq 0 && "cin" -ne 0 ]] && {
-  echoc_incoming
-  fast_forward
+    echoc_incoming
+    [[ "$readonly" != y ]] && fast_forward
 }
 
 # special rules for some projects
