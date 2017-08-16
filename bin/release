@@ -29,6 +29,9 @@ elif is-sbt; then
 elif is-gradle; then
     release-gradle "$@"
 
+elif is-leiningen; then
+    release-leiningen "$@"
+
 elif is-sphinx; then
     release-sphinx "$@"
 

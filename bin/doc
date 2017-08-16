@@ -28,6 +28,10 @@ elif is-maven; then
     mvn javadoc:javadoc
     xdg-open target/site/apidocs/index.html
 
+elif is-leiningen; then
+    lein codox
+    xdg-open target/*/doc/index.html
+
 elif [[ -f src/docs/index.rst ]]; then
     make -C src/docs html
     xdg-open target/manual/html/index.html

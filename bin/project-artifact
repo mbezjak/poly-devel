@@ -11,6 +11,9 @@ if is-grails; then
 elif is-gradle; then
     project-name
 
+elif is-leiningen; then
+    project-name
+
 elif is-maven; then
     cat pom.xml | xpath-query '//project/artifactId/text()'
 

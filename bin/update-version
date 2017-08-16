@@ -32,6 +32,9 @@ elif is-sbt; then
 elif is-gradle; then
     properties-set build.gradle version "'$version'"
 
+elif is-leiningen; then
+    sed -i "1 s|\"$(regex-version)\"|\"${version}\"|" project.clj
+
 elif is-sphinx; then
     properties-set source/conf.py version "'$version'"
     properties-set source/conf.py release "'$version'"

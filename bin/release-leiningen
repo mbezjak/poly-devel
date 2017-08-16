@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+declare -r version="$1"
+
+release-pre "$version"
+lein deploy
+release-post "$version"
+
+exit 0
