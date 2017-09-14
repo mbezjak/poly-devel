@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+
+declare -r shelvesdir=.hg/shelves
+
+function has-shelves-dir { [[ -d $shelvesdir ]]; }
+function list-active-shelves { find "$(pwd)/$shelvesdir" -type f -not -empty -printf "%p\n"; }
+function has-active-shelve { [[ -n $(list-active-shelves) ]]; }
+
+for p in $(projects); do
+    cd $p
+    if is-hg && has-shelves-dir && has-active-shelve; then
+        list-active-shelves
+    fi
+done
