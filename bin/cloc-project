@@ -4,7 +4,7 @@
 set -o errexit
 
 cloc --quiet \
-     --exclude-dir=target,build,ace \
+     --exclude-dir=target,build,ace,domain,conf,test \
      --not-match-f='(-all\.js$|-all-debug\.js$|grailsw\.bat$|grailsw$|gradlew\.bat$|gradlew$)' \
      "$PWD" \
      "$@"
