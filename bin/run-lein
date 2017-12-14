@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+if [[ -x lein ]]; then
+    ./lein "$@"
+else
+    lein "$@"
+fi
+
+exit 0
