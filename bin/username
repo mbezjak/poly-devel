@@ -2,4 +2,4 @@
 #
 
 # because: echo $USER == sudo echo $USER
-id --user --name
+id -u -n
