@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+
+set -o errexit
+
+# https://stackoverflow.com/questions/44317384/sbt-error-failed-to-construct-terminal-falling-back-to-unsupported
+export TERM=xterm-color
+
+exec sbt "$@"
