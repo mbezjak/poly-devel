@@ -5,7 +5,10 @@ set -o errexit
 
 declare -r project=$(project-dir)
 
-if is-grails; then
+if is-grails3; then
+    properties-get gradle.properties grailsVersion
+
+elif is-grails; then
     properties-get application.properties app.grails.version
 
 elif is-gradle; then

@@ -1,4 +1,4 @@
 #!/bin/bash
 #
 
-[[ -f application.properties || -f grailsw ]]
+[[ -f application.properties ]] || is-grails3

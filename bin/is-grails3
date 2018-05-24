@@ -1,0 +1,4 @@
+#!/bin/bash
+#
+
+[[ -f grailsw && ! -f application.properties ]]

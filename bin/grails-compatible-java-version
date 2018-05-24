@@ -9,6 +9,8 @@ if [[ "$grailsversion" =~ ^1\..+$ ]]; then
     echo -e '6\n7'
 elif [[ "$grailsversion" =~ ^2\.(0|1|2|3|4)\..+$ ]]; then
     echo 7
+elif [[ "$grailsversion" =~ ^3\..+$ ]]; then
+    echo 8
 else
     echo -e '7\n8'
 fi
