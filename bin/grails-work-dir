@@ -4,7 +4,12 @@
 set -o errexit
 
 declare -r config=grails-app/conf/BuildConfig.groovy
-declare -r dir=$(properties-get $config grails.project.work.dir | strip-quotes | trim)
+
+if is-grails12; then
+    declare -r dir=$(properties-get $config grails.project.work.dir | strip-quotes | trim)
+else
+    declare -r dir=build
+fi
 
 if [[ -n "$dir" ]]; then
     echo "$dir"
