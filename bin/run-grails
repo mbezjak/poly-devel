@@ -16,10 +16,10 @@ if [[ -x grailsw ]]; then
         export _JAVA_OPTIONS="$_JAVA_OPTIONS -Djline.terminal=jline.UnsupportedTerminal"
     fi
 
-    # plain-output because of:
-    # http://jira.grails.org/browse/GRAILS-10203
-    # http://jira.grails.org/browse/GRAILS-10752
     if is-grails12; then
+        # plain-output because of:
+        # http://jira.grails.org/browse/GRAILS-10203
+        # http://jira.grails.org/browse/GRAILS-10752
         ./grailsw -plain-output "$@"
     else
         ./grailsw "$@"
