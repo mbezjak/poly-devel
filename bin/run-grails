@@ -19,7 +19,11 @@ if [[ -x grailsw ]]; then
     # plain-output because of:
     # http://jira.grails.org/browse/GRAILS-10203
     # http://jira.grails.org/browse/GRAILS-10752
-    ./grailsw -plain-output "$@"
+    if is-grails12; then
+        ./grailsw -plain-output "$@"
+    else
+        ./grailsw "$@"
+    fi
 
     # version 2.{2,3}.x doesn't end with one
     newline
