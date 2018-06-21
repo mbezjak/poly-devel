@@ -1,4 +1,4 @@
 #!/bin/bash
 #
 
-[[ -f application.properties ]] || is-grails3
+is-grails12 || is-grails3

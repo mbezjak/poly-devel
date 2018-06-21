@@ -7,7 +7,7 @@ rm -rf target
 rm -rf build
 rm -rf client-app/target
 
-if is-grails; then
+if is-grails12; then
     rm -rf $(grails-work-dir)
 fi
 
