@@ -2,5 +2,5 @@
 #
 
 tree -a --prune \
-     -I '.hg*|target|wrapper|domain|unit|integration|siesta|WEB-INF|plugin.xml|LICENSE.txt|grailsw*' \
+     -I '.hg*|.gradle|target|build|wrapper|domain|unit|integration|siesta|WEB-INF|plugin.xml|LICENSE.txt|grailsw*' \
      "$@"
