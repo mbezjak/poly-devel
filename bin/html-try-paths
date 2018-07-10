@@ -6,6 +6,7 @@ echo html/index.html
 echo build/html/index.html
 echo build/reports/tests/index.html
 echo build/reports/tests/test/index.html
+echo build/site/index.html
 echo target/test-reports/html/index.html
 echo target/jsdoc/index.html
 echo target/dependency-report/index.html
