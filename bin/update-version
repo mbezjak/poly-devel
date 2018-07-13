@@ -14,6 +14,9 @@ declare -r project=$(project-dir)
 if [[ -x poly-devel/update-version.sh ]]; then
     poly-devel/update-version.sh "$version"
 
+elif is-grails3; then
+    sed -i "s|^version \"$(regex-version)\"|version \"$version\"|" build.gradle
+
 elif is-grails-project; then
     properties-set application.properties app.version $version
 
