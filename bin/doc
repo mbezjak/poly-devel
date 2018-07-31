@@ -6,7 +6,10 @@ set -o errexit
 declare -r project=$(project-dir)
 
 if is-gradle; then
-    if [[ -d src/main/groovy ]]; then
+    if [[ -d src/site/sphinx ]]; then
+        run-gradle site
+        xdg-open build/site/index.html
+    elif [[ -d src/main/groovy ]]; then
         run-gradle groovydoc
         xdg-open build/docs/groovydoc/index.html
     elif [[ -d src/main/java ]]; then
