@@ -1,4 +1,4 @@
 #!/bin/bash
 #
 
-is-playframework-lt23 || is-playframework-ge23
+[[ -d app ]] && (is-playframework-lt23 || is-playframework-ge23)
