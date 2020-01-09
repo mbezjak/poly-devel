@@ -9,7 +9,7 @@ if [[ -x "$global" ]]; then
     "$global"
 else
     echo "$HOME/workspace"
-    echo "$HOME/Dropbox"
+    echo "$HOME/Sync"
 fi
 
 exit 0
