@@ -5,7 +5,10 @@ set -o errexit
 
 declare -r project=$(project-dir)
 
-if is-grails-plugin; then
+if is-grails3; then
+    awk '/^group "/{print $2}' build.gradle | strip-quotes
+
+elif is-grails-plugin; then
     declare -r file=$(grails-find-plugin-descriptor)
     variable-get $file groupId | strip-quotes
 

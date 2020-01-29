@@ -2,4 +2,8 @@
 #
 
 # `-type f` eliminates emacs generated links: '.#FooGrailsPlugin.groovy'
-find -maxdepth 1 -type f -name '*GrailsPlugin.groovy' -printf '%f\n'
+if is-grails12; then
+    find -maxdepth 1 -type f -name '*GrailsPlugin.groovy' -printf '%f\n'
+elif [[ -d src/main/groovy ]]; then
+    find src/main/groovy -type f -name '*GrailsPlugin.groovy'
+fi
