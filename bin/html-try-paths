@@ -4,8 +4,10 @@
 echo index.html
 echo html/index.html
 echo build/html/index.html
+echo build/manual/html/index.html
 echo build/reports/tests/index.html
 echo build/reports/tests/test/index.html
+echo build/jsdoc/index.html
 echo build/site/index.html
 echo target/test-reports/html/index.html
 echo target/jsdoc/index.html
