@@ -49,7 +49,7 @@ elif [[ -f src/docs/index.rst ]]; then
 
 elif [[ -d src/main/javascript ]]; then
     make doc
-    xdg-open target/jsdoc/index.html
+    xdg-open build/jsdoc/index.html
 
 else
     fail "How to document: $project?"
