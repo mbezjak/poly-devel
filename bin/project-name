@@ -5,7 +5,14 @@ set -o errexit
 
 declare -r project=$(project-dir)
 
-if is-grails; then
+if is-gradle; then
+    if [[ -f settings.gradle ]]; then
+        properties-get settings.gradle rootProject.name | strip-quotes
+    else
+        echo $project
+    fi
+
+elif is-grails; then
     declare -r candidate=$(properties-get application.properties app.name)
     echo "${candidate:-$(project-dir)}"
 
@@ -14,13 +21,6 @@ elif is-playframework-lt23; then
 
 elif is-playframework-ge23; then
     awk '/^name/{print $3}' build.sbt | strip-quotes
-
-elif is-gradle; then
-    if [[ -f settings.gradle ]]; then
-        properties-get settings.gradle rootProject.name | strip-quotes
-    else
-        echo $project
-    fi
 
 elif is-leiningen; then
     awk '/\(defproject/{print $2}' project.clj | cut -d/ -f2-
