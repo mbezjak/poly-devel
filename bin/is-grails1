@@ -1,0 +1,4 @@
+#!/bin/bash
+#
+
+[[ -d grails-app && -f application.properties ]]

@@ -1,7 +1,4 @@
 #!/bin/bash
 #
 
-function is-grails1 { [[ -d grails-app && -f application.properties ]]; }
-function is-grails2 { [[ -f grailsw && -f application.properties ]]; }
-
 is-grails1 || is-grails2
