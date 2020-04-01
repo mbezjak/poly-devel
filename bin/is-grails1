@@ -1,4 +1,4 @@
 #!/bin/bash
 #
 
-[[ -d grails-app && -f application.properties ]]
+[[ -d grails-app && -f application.properties && ! -f grailsw ]]
