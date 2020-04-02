@@ -6,6 +6,7 @@ set -o errexit
 rm -rf target
 rm -rf build
 rm -rf client-app/target
+rm -rf client-app/build
 rm -rf .gradle
 
 if is-grails12; then
