@@ -3,10 +3,9 @@
 
 set -o errexit
 
-declare -r file=$(html-existing-paths | head -n 1)
-
-if [[ -n $file ]]; then
-    xdg-open $file
-fi
+for f in $(html-existing-paths)
+do
+    xdg-open "$f"
+done
 
 exit 0
