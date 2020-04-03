@@ -5,13 +5,9 @@ set -o errexit
 
 declare -r project=$(project-dir)
 
-if is-grails3; then
-    if [[ -d src/main/docs ]]; then
-        make -C src/main/docs html
-        xdg-open build/manual/html/index.html
-    else
-        fail "Unknown grails3 project: $project"
-    fi
+if is-grails3 && [[ -d src/main/docs ]]; then
+    make -C src/main/docs html
+    xdg-open build/manual/html/index.html
 
 elif is-gradle; then
     if [[ -d src/site/sphinx ]]; then
