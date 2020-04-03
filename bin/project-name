@@ -28,14 +28,6 @@ elif is-leiningen; then
 elif is-maven; then
     cat pom.xml | xpath-query '//project/name/text()'
 
-elif is-sphinx; then
-    if [[ -f source/conf.py ]]; then
-        declare -r conf=source/conf.py
-    else
-        declare -r conf=conf.py
-    fi
-    properties-get $conf project | strip-python-unicode-tag | strip-quotes
-
 else
     project-dir
 fi
