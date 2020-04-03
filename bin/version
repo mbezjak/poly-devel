@@ -37,7 +37,12 @@ elif is-leiningen; then
     awk '/^\(defproject/{print $3}' project.clj | strip-quotes
 
 elif is-sphinx; then
-    properties-get source/conf.py version | strip-quotes
+    if [[ -f source/conf.py ]]; then
+        declare -r conf=source/conf.py
+    else
+        declare -r conf=conf.py
+    fi
+    properties-get $conf version | strip-quotes
 
 else
     fail "How to get version from: $project?"
