@@ -1,4 +1,4 @@
 #!/bin/bash
 #
 
-[ -f Makefile ] && [ -f source/conf.py ] && grep -q -i sphinx Makefile
+[[ -f Makefile && ( -f conf.py || -f source/conf.py ) ]] && grep -q -i sphinx Makefile
