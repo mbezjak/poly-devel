@@ -9,15 +9,17 @@ release-pre "$version"
 validate-grails-java-version
 grails-package-if-needed
 
-if [[ $(container-version) == 2.* ]]; then
+if is-grails1; then
+    run-grails release-plugin --non-interactive --message="RELEASE $version" --zipOnly --repository=hxRepository
+elif is-grails2; then
     run-grails --non-interactive publish-plugin
 else
-    run-grails release-plugin --non-interactive --message="RELEASE $version" --zipOnly --repository=hxRepository
+    run-grails publish-plugin
 fi
 
 release-post "$version"
 
 # doesn't add any value
-rm grails-$(project-name)-${version}.zip
+rm -f grails-$(project-name)-${version}.zip
 
 exit 0
