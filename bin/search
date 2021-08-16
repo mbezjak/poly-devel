@@ -7,4 +7,5 @@ find -L $SEARCH_EXPR -iname "*$1*" -printf '%P\n' |
         -e '(^|/)\.git(/|$)'    \
         -e '(^|/)target(/|$)'   \
         -e '(^|/)build(/|$)'    \
+        -e '(^|/)\.clj-kondo(/|$)' \
         -e '(^|/)\.gradle(/|$)'
