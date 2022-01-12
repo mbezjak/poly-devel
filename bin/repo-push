@@ -17,7 +17,7 @@ elif is-git; then
 
         git checkout gh-pages
         git merge --ff-only origin/gh-pages
-        git merge master
+        git merge main
         git push
 
         git checkout $current_branch

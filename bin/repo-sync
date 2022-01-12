@@ -16,9 +16,9 @@ color_reset()  { tput sgr0;    }
 
 git_count_dirty()  { git status --short | wc -l; }
 git_inout() { git log --oneline --reverse "$1" 2> /dev/null; }
-git_incoming()     { git_inout master..origin/master; }
-git_outgoing()     { git_inout origin/master..master; }
-git_fast_forward() { git merge --quiet --ff-only origin/master; }
+git_incoming()     { git_inout main..origin/main; }
+git_outgoing()     { git_inout origin/main..main; }
+git_fast_forward() { git merge --quiet --ff-only origin/main; }
 
 hg_count_dirty()   { hg status | wc -l; }
 hg_inout()  { hg --quiet "$1" --template '{rev} {author|person} {desc|firstline}\n' 2> /dev/null; }
