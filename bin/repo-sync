@@ -54,7 +54,7 @@ cout=$(count_outgoing)
 }
 
 # special rules for some projects
-[[ "$project" == .metadata || "$project" == notes ]] && dirty=0
+[[ "$project" == notes ]] && dirty=0
 
 
 echoc_dirty $dirty
