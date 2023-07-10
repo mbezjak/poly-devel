@@ -14,11 +14,12 @@ color_orange() { tput setaf 3; }
 color_red()    { tput setaf 1; }
 color_reset()  { tput sgr0;    }
 
+git_default_branch() { (git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null || echo main) | sed 's@^refs/remotes/origin/@@'; }
 git_count_dirty()  { git status --short | wc -l; }
 git_inout() { git log --oneline --reverse "$1" 2> /dev/null; }
-git_incoming()     { git_inout main..origin/main; }
-git_outgoing()     { git_inout origin/main..main; }
-git_fast_forward() { git merge --quiet --ff-only origin/main; }
+git_incoming()     { git_inout "$(git_default_branch)"..origin/"$(git_default_branch)"; }
+git_outgoing()     { git_inout origin/"$(git_default_branch)".."$(git_default_branch)"; }
+git_fast_forward() { git merge --quiet --ff-only origin/"$(git_default_branch)"; }
 
 hg_count_dirty()   { hg status | wc -l; }
 hg_inout()  { hg --quiet "$1" --template '{rev} {author|person} {desc|firstline}\n' 2> /dev/null; }
